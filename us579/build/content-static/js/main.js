@@ -34,12 +34,15 @@ function initPage(){
     document.body.appendChild(app);
 }
 
+initPage();
+
 //
-window.onload = function () {
+window.onload = function() {
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
     var TalkSub = document.getElementById("talksub");
-    TalkSub.onclick = function () {
+    
+    TalkSub.onclick = function() {
         var str = "";
         if (TalkWords.value == "") {
             alert("Input can not be empty");
