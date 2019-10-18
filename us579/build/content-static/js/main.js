@@ -1,5 +1,4 @@
 // author: Wanze liu, z5137189
-
 // help function
 function createElement(tag, data, options = {}) {
   const ele = document.createElement(tag);
