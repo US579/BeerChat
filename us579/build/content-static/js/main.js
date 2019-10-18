@@ -1,5 +1,4 @@
 // author: Wanze liu, z5137189
-
 // help function
 function createElement(tag, data, options = {}) {
   const ele = document.createElement(tag);
@@ -52,11 +51,11 @@ window.onload = function () {
 
         if (localStorage.getItem("flag")==1){
             localStorage.setItem("flag", 0)
-            str = '<div class="atalk"><span>A说 :' + TalkWords.value + '</span></div>';
+            str = '<div class="atalk"><span>A say :' + TalkWords.value + '</span></div>';
             TalkWords.value ='';
         }else{
             localStorage.setItem("flag", 1)
-            str = '<div class="btalk"><span>B说 :' + TalkWords.value + '</span></div>';
+            str = '<div class="btalk"><span>B say :' + TalkWords.value + '</span></div>';
             TalkWords.value = '';
         }
         Words.innerHTML = Words.innerHTML + str;
