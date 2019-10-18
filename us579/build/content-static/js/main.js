@@ -9,7 +9,7 @@ function createElement(tag, data, options = {}) {
 }
 
 
-const app = createElement("div", null, { class: "container", id: "maaaaan", style:"display:block"});
+const app = createElement("div", null, { class: "container", id: "maaaaan", style:"display:none"});
 // header 
 // const chat = createElement("div",null,{class:"bootstrapchat",id:"chat1"})
 // const nav = createElement("nav", null, { class: "navbar navbar-light bg-light"})
@@ -96,6 +96,7 @@ window.onload = function () {
         //     str = '<div class="btalk"><span>B说 :' + TalkWords.value + '</span></div>';
         // }
         Words.innerHTML = Words.innerHTML + str;
+        words.scrollTop = words.scrollHeight;
     }
 
 }
