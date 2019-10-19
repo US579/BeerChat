@@ -1,0 +1,8 @@
+Flask
+Jinja2
+Flask-RESTful
+jsonschema
+six
+jwt
+pyjwt
+rivescript
