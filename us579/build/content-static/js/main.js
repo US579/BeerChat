@@ -22,9 +22,20 @@ function initPage(){
     let Atalk = createElement("div",null,{class:"atalk"})
     let Btalk = createElement("div", null, { class: "btalk" })
     Atalk.appendChild(createElement("span","any problems for open source ?",{id:"asay"}))
-    Btalk.appendChild(createElement("span", "a lot", { id:"bsay" }))
     talk_show.appendChild(Atalk);
-    talk_show.appendChild(Btalk);
+    if (sessionStorage.length){
+        for (var i = 0; i < sessionStorage.length; i++) {
+            if (i%2==0){
+                let Atalk = createElement("div", null, { class: "btalk" })
+                Atalk.appendChild(createElement("span", sessionStorage.getItem(i), { id: "asay" }))
+                talk_show.appendChild(Atalk);
+            }else{
+                let Btalk = createElement("div", null, { class: "atalk" });
+                Btalk.appendChild(createElement("span", sessionStorage.getItem(i), { id: "bsay" }))
+                talk_show.appendChild(Btalk);
+            }
+        }
+    }
     let talk_input = createElement("div",null,{class:"talk_input"})
     talk_input.appendChild(createElement("input",null,{type:"text",class:"talk_word",id:"talkwords"}))
     talk_input.appendChild(createElement("input", null, { type: "button", value:"send",class: "talk_sub", id: "talksub" }))
@@ -32,31 +43,44 @@ function initPage(){
     talk_con.appendChild(talk_input)
     app.appendChild(talk_con)
     document.body.appendChild(app);
+    let words = document.getElementById("words");
+    words.scrollTop = words.scrollHeight;
+
 }
 
-initPage();
+initPage(); 
 
+document.οnkeydοwn = function (e) {    
+    var keyNum = window.event ? e.keyCode : e.which;       
+    alert(window.event)
+    alert("hahah")
+    if (keyNum == 108) {
+        alert('enter');
+    }
+}
 //
+
 window.onload = function() {
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
     var TalkSub = document.getElementById("talksub");
-    
+
     TalkSub.onclick = function() {
         var str = "";
         if (TalkWords.value == "") {
             alert("Input can not be empty");
             return;
         }
-        str = '<div class="btalk"><span>' + TalkWords.value + '</span></div>';
+        str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
+        sessionStorage.setItem(sessionStorage.length, TalkWords.value);
         chrome.runtime.sendMessage(
           { contentScriptQuery: TalkWords.value },
-          
           function(res) {
             console.log(res.messge);
             let Words2 = document.getElementById("words");
             var str2 =
               '<div class="atalk"><span>' + res.messge + "</span></div>";
+              sessionStorage.setItem(sessionStorage.length, res.messge);
             TalkWords.value = "";
             Words2.innerHTML = Words.innerHTML + str2;
             words.scrollTop = words.scrollHeight;
