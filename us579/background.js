@@ -5,9 +5,9 @@
 'use strict';
 
 chrome.runtime.onInstalled.addListener(function() {
-  chrome.storage.sync.set({color: '#6ab759'}, function() {
-    console.log('The color is green.');
-  });
+  // chrome.storage.sync.set({color: '#6ab759'}, function() {
+  //   console.log('The color is green.');
+  // });
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([{
       conditions: [new chrome.declarativeContent.PageStateMatcher({
@@ -16,21 +16,38 @@ chrome.runtime.onInstalled.addListener(function() {
       actions: [new chrome.declarativeContent.ShowPageAction()]
     }]);
   });
+  return true;
 });
 
-function test(){
-  let maaaan = document.getElementById("maaaaan");
-  maaaan.style.display = "block";
-  console.log("click");
-  alert("llllllllllllll")
-  // chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-  //   chrome.tabs.executeScript(
-  //     tabs[0].id,
-  //     { code: 'document.body.style.backgroundColor = "' + "black" + '";' });
-  // });
-};
 
+chrome.runtime.onMessage.addListener(
+  function (request, sender, sendResponse) {
+    if (request.contentScriptQuery) {
+       var token =
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjEiLCJleHAiOjE1NzE1NTg1OTN9.y6TTqBu2rlRSUQWTvZHLRqFU5TREnzNX0G3xobV6q8s";
+      let url = "http://127.0.0.1:5000/ChatService/chatbot?message=" + request.contentScriptQuery ;
+        console.log(url)
+        fetch(url, {
+            method: "GET",
+            headers: {
+                "Access-Control-Allow-Origin": "*",
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Token': token
+            }
+        })
+        .then(res=>res.json())
+        .then(res => sendResponse(res))
+        .catch(error=>console.log(error))
+      return true;  // Will respond asynchronously.
+    }
+  });
 
+// async function doSomethingWith(request) {
+//   var key = await getKey();
+//   // await .....
+//   return key;
+// }
 
 // chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 //   if (request.clearIcon) {

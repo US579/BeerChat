@@ -48,19 +48,21 @@ window.onload = function() {
             alert("Input can not be empty");
             return;
         }
-
-        // fill the code
-        // connect with backend api
-
-        if (localStorage.getItem("flag")==1){
-            localStorage.setItem("flag", 0)
-            str = '<div class="atalk"><span>A say :' + TalkWords.value + '</span></div>';
-            TalkWords.value ='';
-        }else{
-            localStorage.setItem("flag", 1)
-            str = '<div class="btalk"><span>B say :' + TalkWords.value + '</span></div>';
-            TalkWords.value = '';
-        }
+        str = '<div class="btalk"><span>' + TalkWords.value + '</span></div>';
+        chrome.runtime.sendMessage(
+          { contentScriptQuery: TalkWords.value },
+          
+          function(res) {
+            console.log(res.messge);
+            let Words2 = document.getElementById("words");
+            var str2 =
+              '<div class="atalk"><span>' + res.messge + "</span></div>";
+            TalkWords.value = "";
+            Words2.innerHTML = Words.innerHTML + str2;
+            words.scrollTop = words.scrollHeight;
+          }
+        );
+        TalkWords.value = ""
         Words.innerHTML = Words.innerHTML + str;
         words.scrollTop = words.scrollHeight;
     }
@@ -70,6 +72,7 @@ window.onload = function() {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     let maaaan = document.getElementById("maaaaan");
     maaaan.style.display = "block";
+    sendResponse({farewell:"ok"})
 });
 
 

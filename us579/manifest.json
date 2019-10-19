@@ -2,7 +2,9 @@
   "name": "us579",
   "version": "1.0",
   "description": "Build an Extension!",
-  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "permissions": ["activeTab", "declarativeContent", "storage",
+    "https://*/","http://127.0.0.1:5000/*"
+  ],
   "options_ui": {
     "page": "options.html",
     "chrome_style": true

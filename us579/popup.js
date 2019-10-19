@@ -10,11 +10,6 @@ chatbox.onclick = function (element) {
   // bg.test();
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { message: "close" }, function (response) {
-      if (typeof response != 'undefined') {
-        console.log(response);
-      } else {
-        console.log("response=>" + response);
-      }
     });//end  sendMessage   
   }); //end query
 };
