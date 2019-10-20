@@ -63,6 +63,14 @@
 .atalk{
     margin:10px; 
 }
+.Oops{
+    display:inline-block;
+    background:#ef8201;
+    border-radius:10px;
+    color:#fff;
+    padding:5px 10px;
+    text-align: center;
+}
 .atalk span{
     display:inline-block;
     background:#0181cc;

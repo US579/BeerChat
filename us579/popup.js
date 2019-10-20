@@ -41,3 +41,76 @@ onBut2.onclick = () => {
       dc2.style.display = "none";
     }
 };
+
+// login 
+const login_submit = document.getElementById("login-submit");
+login_submit.onclick = () =>{
+  let username_login = document.getElementById("inputusername").value;
+  let password_login = document.getElementById("inputpassword").value;
+  let url ="http://127.0.0.1:5000/ChatService/user/login?email="+username_login+"&password="+password_login;
+  console.log(url)
+  fetch(url, {
+    method: "GET",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(res=>res.json())
+  .then(function(res){
+    if (res.token){
+      let login = document.getElementById("login")
+      let signup = document.getElementById("signup")
+      let dc2 = document.getElementById("login-popup");
+      let logout = document.getElementById("logout");
+      login.style.display = "none";
+      signup.style.display = "none";
+      dc2.style.display = "none";
+      logout.style.display = "block";
+    }
+    chrome.storage.sync.set({'key': res.token }, function () {
+      console.log(res.token)
+    });
+
+  })
+}
+
+let logout = document.getElementById("logout");
+logout.onclick=()=>{
+  let login = document.getElementById("login");
+  let signup = document.getElementById("signup");
+  login.style.display = "block";
+  signup.style.display = "block";
+  let logout = document.getElementById("logout");
+  logout.style.display="none";
+  chrome.storage.sync.clear(function () {
+    var error = chrome.runtime.lastError;
+    if (error) {
+      console.error(error);
+    }
+  });
+}
+
+const signup_submit = document.getElementById("signup-submit");
+signup_submit.onclick = () => {
+  let url = "http://127.0.0.1:5000/ChatService/user/register";
+  console.log(url)
+  fetch(url, {
+    method: "POST",
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "email": "string",
+      "password": "string",
+      "role": "mentor"
+    })
+  })
+    .then(res => res.json())
+    .then(function (res) {
+      console.log(res)
+    })
+}

@@ -23,8 +23,11 @@ chrome.runtime.onInstalled.addListener(function() {
 chrome.runtime.onMessage.addListener(
   function (request, sender, sendResponse) {
     if (request.contentScriptQuery) {
-       var token =
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjEiLCJleHAiOjE1NzE1NTg1OTN9.y6TTqBu2rlRSUQWTvZHLRqFU5TREnzNX0G3xobV6q8s";
+      chrome.storage.sync.get(['key'], function (result) {
+        localStorage.setItem("token",result.key)
+        console.log(token);
+      })
+      let token = localStorage.getItem("token")
       let url = "http://127.0.0.1:5000/ChatService/chatbot?message=" + request.contentScriptQuery ;
         console.log(url)
         fetch(url, {

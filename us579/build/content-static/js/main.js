@@ -20,10 +20,7 @@ function initPage(){
     talk_con.append(bt)
     let talk_show = createElement("div",null, { class: "talk_show",id:"words"})
     let Atalk = createElement("div",null,{class:"atalk"})
-    if (! localStorage.getItem("status")){
-        let nosession = createElement("div", "haven't login,please login to ask your Question", { id: "mid" });
-        talk_show.appendChild(nosession);
-    }else{
+    // alert(localStorage.getItem("status"));
     let Btalk = createElement("div", null, { class: "btalk" })
     Atalk.appendChild(createElement("span","any problems for open source ?",{id:"asay"}))
     talk_show.appendChild(Atalk);
@@ -39,7 +36,7 @@ function initPage(){
                 talk_show.appendChild(Btalk);
             }
         }
-    }}
+    }
     let talk_input = createElement("div",null,{class:"talk_input"})
     talk_input.appendChild(createElement("input",null,{type:"text",class:"talk_word",id:"talkwords"}))
     talk_input.appendChild(createElement("input", null, { type: "button", value:"send",class: "talk_sub", id: "talksub" }))
@@ -61,6 +58,16 @@ document.οnkeydοwn = function (e) {
     }
 }
 //
+function clearLocalStorage() {
+    chrome.storage.local.clear(function () {
+        var error = chrome.runtime.lastError;
+        if (error) {
+            console.error(error);
+        }
+    })
+}
+
+
 
 window.onload = function() {
     var Words = document.getElementById("words");
@@ -68,41 +75,49 @@ window.onload = function() {
     var TalkSub = document.getElementById("talksub");
     TalkSub.onclick = function() {
         // check whether user login or not 
-        if (! localStorage.getItem("status")){
-            let warning = document.getElementById("words");
-            let warn =
-              '<div style="text-align: center;">' +
-              "Opps! haven't login yet" +
-              "</div>";
-            TalkWords.value = "";
-            warning.innerHTML = Words.innerHTML + warn;
-            words.scrollTop = words.scrollHeight;
-            return
-        }
-        // check input
-        var str = "";
-        if (TalkWords.value == "") {
-            alert("Input can not be empty");
-            return;
-        }
-        str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
-        sessionStorage.setItem(sessionStorage.length, TalkWords.value);
-        chrome.runtime.sendMessage(
-          { contentScriptQuery: TalkWords.value },
-          function(res) {
-            console.log(res.messge);
-            let Words2 = document.getElementById("words");
-            var str2 =
-              '<div class="atalk"><span>' + res.messge + "</span></div>";
-              sessionStorage.setItem(sessionStorage.length, res.messge);
-            TalkWords.value = "";
-            Words2.innerHTML = Words.innerHTML + str2;
-            words.scrollTop = words.scrollHeight;
-          }
-        );
-        TalkWords.value = ""
-        Words.innerHTML = Words.innerHTML + str;
-        words.scrollTop = words.scrollHeight;
+        chrome.storage.sync.get(['key'], function (result) {
+            var key = result.key;
+
+            if (!key) {
+                let warning = document.getElementById("words");
+                let warn =
+                  '<div style="text-align: center; padding:5px 10px;">' +
+                  "Oops! you haven't login yet" +
+                  "</div>";
+                TalkWords.value = "";
+                warning.innerHTML = Words.innerHTML + warn;
+                words.scrollTop = words.scrollHeight;
+                return 
+            }else{
+                // check input
+                var str = "";
+                if (TalkWords.value == "") {
+                    alert("Input can not be empty");
+                    return;
+                }
+                str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
+                sessionStorage.setItem(sessionStorage.length, TalkWords.value);
+                chrome.runtime.sendMessage(
+                    { contentScriptQuery: TalkWords.value },
+                    function (res) {
+                        console.log(res)
+                        console.log(res.messge);
+                        let Words2 = document.getElementById("words");
+                        var str2 =
+                            '<div class="atalk"><span>' + res.messge + "</span></div>";
+                        sessionStorage.setItem(sessionStorage.length, res.messge);
+                        TalkWords.value = "";
+                        Words2.innerHTML = Words.innerHTML + str2;
+                        words.scrollTop = words.scrollHeight;
+                    }
+                );
+                TalkWords.value = ""
+                Words.innerHTML = Words.innerHTML + str;
+                words.scrollTop = words.scrollHeight;
+            }
+        });
+      
+
     }
 }
 
