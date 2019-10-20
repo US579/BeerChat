@@ -103,16 +103,26 @@ window.onload = function() {
                         console.log(res)
                         console.log(res.messge);
                         let Words2 = document.getElementById("words");
+                        Words.innerHTML = Words.innerHTML + str;
+                        if (res.messge == "Sorry I don't understand.") {
+                            var mentor =
+                                '<div style="text-align: center; padding:5px 10px;">' +
+                                "Oops, Maybe you need a mentor ! <a>click me</a>" +
+                                "</div>";
+                        }
                         var str2 =
                             '<div class="atalk"><span>' + res.messge + "</span></div>";
                         sessionStorage.setItem(sessionStorage.length, res.messge);
                         TalkWords.value = "";
                         Words2.innerHTML = Words.innerHTML + str2;
+                        if (mentor){
+                            Words2.innerHTML = Words.innerHTML + mentor;
+                        }
                         words.scrollTop = words.scrollHeight;
                     }
                 );
                 TalkWords.value = ""
-                Words.innerHTML = Words.innerHTML + str;
+                // Words.innerHTML = Words.innerHTML + str;
                 words.scrollTop = words.scrollHeight;
             }
         });
