@@ -106,9 +106,9 @@ window.onload = function() {
                         Words.innerHTML = Words.innerHTML + str;
                         if (res.messge == "Sorry I don't understand.") {
                             var mentor =
-                                '<div style="text-align: center; padding:5px 10px;">' +
-                                "Oops, Maybe you need a mentor ! <a>click me</a>" +
-                                "</div>";
+                              '<div style="text-align: center; padding:5px 10px;">' +
+                              "Oops, Maybe you need a mentor ! <a style='cursor:pointer;'>click me</a>" +
+                              "</div>";
                         }
                         var str2 =
                             '<div class="atalk"><span>' + res.messge + "</span></div>";
