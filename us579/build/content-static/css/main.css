@@ -7,6 +7,7 @@
     
 }
 
+
 #btt{
    position: absolute;
     top: 0px;
@@ -72,6 +73,10 @@
 .btalk{
     margin:10px;
     text-align:right;
+}
+#mid{
+    text-align: center;
+
 }
 .btalk span{
     display:inline-block;

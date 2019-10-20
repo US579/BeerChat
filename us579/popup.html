@@ -14,12 +14,42 @@
 
 <body>
   <div style="margin:10px;width:300px;height:100px">
-  <center style="background:#efefef">
+  <div style="background:#efefef",style="display:inline">
     <img style="margin:10px;width:24px;height:24px" src="/images/issue.png" />
-  </center>
+    <button class="btn btn-success" type="button" id="signup" style=" float:right;
+        border-radius:5px; margin-top:3px;margin-right: 5px">signup</button>
+    <button class="btn btn-info" type="button" id="login" style=" float:right;
+    border-radius:5px ;margin-top:3px ;margin-right:4px">login</button>
+      <button class="btn btn-danger" type="button" id="login" style=" float:right;
+          border-radius:5px ;margin-top:3px ;margin-right:4px">logout</button>
+
+  </div>
 
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
+    <div id="login-popup" style="display:none">
+      <div class="form-label-group" style="margin-top:25px">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+              </div>
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" style="margin-top:3px" class="form-control" placeholder="Password" required>
+              </div>
+
+              <button class="btn btn-warning btn-block text-uppercase" style="margin-top:8px"type="submit" style="border-radius:5px">Sign in</button>
+     </div>
+     <div id="signup-popup" style="display:none">
+          <div class="form-label-group" style="margin-top:25px">
+            <input type="email" id="inputEmail" class="form-control" placeholder="Username" required autofocus>
+          </div>
+          <div class="form-label-group">
+            <input type="password" id="inputPassword" style="margin-top:3px" class="form-control" placeholder="Email" required>
+          </div>
+          <div class="form-label-group">
+            <input type="password" id="inputPassword" class="form-control" style="margin-top:3px" placeholder="Password" required>
+          </div>
+          <button class="btn btn-danger btn-block text-uppercase" style="margin-top:8px" type="submit" style="border-radius:5px">Sign
+            up</button>
+        </div>
     <div style="margin:30px">
     <button type="button" id="chatbox" class="btn btn-primary btn-block">Open ChatBox</button>
     <script src="popup.js"></script>
