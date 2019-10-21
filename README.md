@@ -9,6 +9,7 @@
 * login status check 
 * chatbox
 * connect to the chatbot
+* UI design
 
 
 ### Frontend
