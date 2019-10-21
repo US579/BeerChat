@@ -3,10 +3,10 @@ bin-debug/
 bin-release/
 [Oo]bj/
 [Bb]in/
-
+chatbot
 # Other files and folders
 .settings/
-
+.Ds*
 # Executables
 *.swf
 *.air
