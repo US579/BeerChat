@@ -2,7 +2,7 @@
 
 # How to run
 
-### implementation
+### Implementation
 
 * signup
 * login
@@ -13,11 +13,11 @@
 
 ### frontend
 
-* 1. open chrome 
-* 2. go to settings -> extensions
-* 3. choose develope mode -> load unpacked 
-* 4. choose folder `us579`
-* 5. open any github pages(this app only access under github pages)
+*  open chrome 
+*  go to settings -> extensions
+*  choose develope mode -> load unpacked 
+*  choose folder `us579`
+*  open any github pages(this app only access under github pages)
 
 
 ### backend
