@@ -77,7 +77,6 @@ window.onload = function() {
         // check whether user login or not 
         chrome.storage.sync.get(['key'], function (result) {
             var key = result.key;
-
             if (!key) {
                 let warning = document.getElementById("words");
                 let warn =
@@ -95,6 +94,22 @@ window.onload = function() {
                     alert("Input can not be empty");
                     return;
                 }
+                // Create WebSocket connection.
+                const socket = new WebSocket('ws://localhost:8080');
+
+                // Connection opened
+                console.log(TalkWords.value)
+                var msg = TalkWords.value;
+                socket.addEventListener('open', function (event) {
+                    socket.send( msg);
+                    console.log("send socket")
+                });
+
+                // Listen for messages
+                socket.addEventListener('message', function (event) {
+                    console.log('Message from server ', event.data);
+                });
+
                 str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
                 sessionStorage.setItem(sessionStorage.length, TalkWords.value);
                 chrome.runtime.sendMessage(
