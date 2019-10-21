@@ -11,7 +11,7 @@
 * connect to the chatbot
 
 
-### frontend
+### Frontend
 
 *  open chrome 
 *  go to settings -> extensions
@@ -20,7 +20,7 @@
 *  open any github pages(this app only access under github pages)
 
 
-### backend
+### Backend
 
 ```
 >> brew install virtualenv (only for mac)
