@@ -1,23 +1,24 @@
 # us579
 
-# How to run
-
 ### Implementation
 
 * signup
 * login
-* login status check 
+* login status check
 * chatbox
 * connect to the chatbot
 * UI design
 
+# How to run
+
+1. Go to `release` download the latest release version 1.0.1
 
 ### Frontend
 
-*  open chrome 
+*  open chrome
 *  go to settings -> extensions
-*  choose develope mode -> load unpacked 
-*  choose folder `us579`
+*  choose develope mode -> load unpacked
+*  choose folder `frontend`
 *  open any github pages(this app only access under github pages)
 
 
@@ -30,3 +31,6 @@
 >> pip install -r requirment.ext
 >> python3 __init__.py
 ```
+~
+~
+"README.md" 33L, 557C
