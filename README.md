@@ -29,7 +29,7 @@
 >> brew install virtualenv (only for mac)
 >> virtualenv env
 >> source env/bin/activate
->> pip install -r requirment.ext
+>> pip install -r requirment.txt
 >> python3 __init__.py
 ```
 
