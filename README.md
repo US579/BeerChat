@@ -7,6 +7,7 @@
 * login status check
 * chatbox
 * connect to the chatbot
+* chat history sotred 
 * UI design
 
 # How to run
