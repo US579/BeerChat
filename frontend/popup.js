@@ -5,6 +5,7 @@
 
 'use strict';
 
+ 
 let chatbox = document.getElementById('chatbox');
 chatbox.onclick = function (element) {
   // var bg = chrome.extension.getBackgroundPage();
