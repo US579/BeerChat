@@ -1,0 +1,49 @@
+{
+  "name": "us579",
+  "version": "1.0",
+  "description": "Build an Extension!",
+  "permissions": ["activeTab", "declarativeContent", "storage",
+    "https://*/","http://127.0.0.1:5000/*"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "chrome_style": true
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/issue.png",
+      "32": "images/issue.png",
+      "48": "images/issue.png",
+      "128": "images/issue.png"
+    }
+  },
+  "icons": {
+    "16": "images/issue.png",
+    "32": "images/issue.png",
+    "48": "images/issue.png",
+    "128": "images/issue.png"
+  },
+  "web_accessible_resources": [
+    "build/*"
+  ],
+  "content_scripts": [
+    {
+      "css": [
+        "build/content-static/css/main.css"
+      ],
+      "js": [
+        "build/content-static/js/main.js"
+      ],
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ]
+    }
+  ],
+  "manifest_version": 2
+}
