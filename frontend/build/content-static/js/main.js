@@ -69,10 +69,39 @@ function clearLocalStorage() {
 
 
 
+
 window.onload = function() {
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
     var TalkSub = document.getElementById("talksub");
+    var socket = new WebSocket("ws://localhost:8080/ws");
+    if (!window.WebSocket) {
+        window.WebSocket = window.MozWebSocket;
+    }
+    if (window.WebSocket) {
+        socket.onmessage = function (event) {
+            var Words = document.getElementById("words");
+            let Words2 = document.getElementById("words");
+            let str3 =
+                '<div class="atalk"><span>' +
+                event.data +
+                "</span></div>";
+            Words2.innerHTML = Words.innerHTML + str3;
+            words.scrollTop = words.scrollHeight;
+        }
+    } else {
+        alert("you safari not support WebSocket！");
+    }
+    function send(message) {
+        if (!window.WebSocket) {
+            return;
+        }
+        if (socket.readyState == WebSocket.OPEN) {
+            socket.send(message);
+        } else {
+            alert("connect is not open");
+        }
+    }
     TalkSub.onclick = function() {
         // check whether user login or not 
         chrome.storage.sync.get(['key'], function (result) {
@@ -94,23 +123,9 @@ window.onload = function() {
                     alert("Input can not be empty");
                     return;
                 }
-                // // Create WebSocket connection.
-                // const socket = new WebSocket('ws://localhost:8080');
-
-                // // Connection opened
-                // console.log(TalkWords.value)
-                // var msg = TalkWords.value;
-                // socket.addEventListener('open', function (event) {
-                //     socket.send( msg);
-                //     console.log("send socket")
-                // });
-
-                // // Listen for messages
-                // socket.addEventListener('message', function (event) {
-                //     console.log('Message from server ', event.data);
-                // });
 
                 str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
+                send(TalkWords.value)
                 sessionStorage.setItem(sessionStorage.length, TalkWords.value);
                 chrome.runtime.sendMessage(
                     { contentScriptQuery: TalkWords.value },
@@ -125,10 +140,15 @@ window.onload = function() {
                               "Oops, Maybe you need a mentor ! <a style='cursor:pointer;'>click me</a>" +
                               "</div>";
                         }
+
                         var str2 =
                             '<div class="atalk"><span>' + res.messge + "</span></div>";
                         sessionStorage.setItem(sessionStorage.length, res.messge);
+                        // real time chat----------------------------------------
+                       
+                        //--------------------------------------------------
                         TalkWords.value = "";
+
                         Words2.innerHTML = Words.innerHTML + str2;
                         if (mentor){
                             Words2.innerHTML = Words.innerHTML + mentor;
