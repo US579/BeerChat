@@ -74,7 +74,8 @@ window.onload = function() {
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
     var TalkSub = document.getElementById("talksub");
-    var socket = new WebSocket("ws://localhost:8080/ws");
+    // var socket = new WebSocket("ws://localhost:8080/ws");
+    var socket = new WebSocket("ws://192.169.1.2:8080/ws");
     if (!window.WebSocket) {
         window.WebSocket = window.MozWebSocket;
     }
