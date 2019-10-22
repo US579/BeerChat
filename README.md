@@ -31,6 +31,4 @@
 >> pip install -r requirment.ext
 >> python3 __init__.py
 ```
-~
-~
-"README.md" 33L, 557C
+
