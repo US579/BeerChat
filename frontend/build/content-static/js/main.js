@@ -16,6 +16,7 @@ function initPage(){
     const bt = createElement("button",null, { id:"btt", alt: "" })
     bt.onclick = function () {
         app.style.display = "none";
+        sessionStorage.setItem("mentor",0)
     }
     talk_con.append(bt)
     let talk_show = createElement("div",null, { class: "talk_show",id:"words"})
@@ -69,30 +70,41 @@ function clearLocalStorage() {
 
 
 
-
 window.onload = function() {
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
     var TalkSub = document.getElementById("talksub");
-    // var socket = new WebSocket("ws://localhost:8080/ws");
-    var socket = new WebSocket("ws://192.169.1.2:8080/ws");
+    var Mentor_coming =
+      '<div style="text-align: center; padding:5px 10px;color: red;">' +
+      "Hi I am mentor US579 🧐🧐🧐" +
+      "</div>";
+    var socket = new WebSocket("ws://localhost:8080/ws");
+    // var socket = new WebSocket("ws://192.169.1.2:8080/ws");
     if (!window.WebSocket) {
         window.WebSocket = window.MozWebSocket;
     }
     if (window.WebSocket) {
         socket.onmessage = function (event) {
             var Words = document.getElementById("words");
-            let Words2 = document.getElementById("words");
+
+            console.log(event.data)
+            if (!sessionStorage.getItem("port")){
+                sessionStorage.setItem("port",event.data)
+            }
+            let data = event.data
+            console.log(data.slice(0,5))
+            console.log(sessionStorage.getItem("port"))
             let str3 =
                 '<div class="atalk"><span>' +
-                event.data +
+                event.data+
                 "</span></div>";
-            Words2.innerHTML = Words.innerHTML + str3;
-            words.scrollTop = words.scrollHeight;
+            Words.innerHTML = Words.innerHTML + str3;
+            Words.scrollTop = words.scrollHeight;
         }
     } else {
         alert("you safari not support WebSocket！");
     }
+    
     function send(message) {
         if (!window.WebSocket) {
             return;
@@ -104,6 +116,7 @@ window.onload = function() {
         }
     }
     TalkSub.onclick = function() {
+
         // check whether user login or not 
         chrome.storage.sync.get(['key'], function (result) {
             var key = result.key;
@@ -115,9 +128,26 @@ window.onload = function() {
                   "</div>";
                 TalkWords.value = "";
                 warning.innerHTML = Words.innerHTML + warn;
-                words.scrollTop = words.scrollHeight;
+                Words.scrollTop = Words.scrollHeight;
                 return 
             }else{
+
+                if (sessionStorage.getItem("mentor") == 1) {
+
+                    send(TalkWords.value)
+                   
+                    var Words = document.getElementById("words");
+                    let str4 =
+                        '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
+                    sessionStorage.setItem(
+                      sessionStorage.length,
+                      TalkWords.value
+                    );
+                    Words.innerHTML = Words.innerHTML + str4;
+                    TalkWords.value = "";
+                    Words.scrollTop = words.scrollHeight;
+                    return
+                }
                 // check input
                 var str = "";
                 if (TalkWords.value == "") {
@@ -125,38 +155,42 @@ window.onload = function() {
                     return;
                 }
 
-                str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
-                send(TalkWords.value)
+                str = '<div class="btalk"><span>' + TalkWords.value+ "</span></div>";
+                // send(TalkWords.value)
                 sessionStorage.setItem(sessionStorage.length, TalkWords.value);
+                if (sessionStorage.getItem("mentor")!=1){
                 chrome.runtime.sendMessage(
                     { contentScriptQuery: TalkWords.value },
                     function (res) {
-                        console.log(res)
-                        console.log(res.messge);
-                        let Words2 = document.getElementById("words");
+                        var Words = document.getElementById("words");
                         Words.innerHTML = Words.innerHTML + str;
                         if (res.messge == "Sorry I don't understand.") {
                             var mentor =
                               '<div style="text-align: center; padding:5px 10px;">' +
-                              "Oops, Maybe you need a mentor ! <a style='cursor:pointer;'>click me</a>" +
+                              "Oops, Maybe you need a mentor ! <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
                               "</div>";
                         }
 
                         var str2 =
-                            '<div class="atalk"><span>' + res.messge + "</span></div>";
+                            '<div class="atalk"><span>' + res.messge  + "</span></div>";
                         sessionStorage.setItem(sessionStorage.length, res.messge);
-                        // real time chat----------------------------------------
-                       
-                        //--------------------------------------------------
                         TalkWords.value = "";
-
-                        Words2.innerHTML = Words.innerHTML + str2;
+                        // clickMentor.addEventListener("click", toMentor())
+                        Words.innerHTML = Words.innerHTML + str2;
                         if (mentor){
-                            Words2.innerHTML = Words.innerHTML + mentor;
+                            Words.innerHTML = Words.innerHTML + mentor;
+                            document.getElementById("mentor").onclick = function toMentor() {
+                                sessionStorage.setItem("mentor", 1)
+                                alert("change to mentor")
+                                Words.innerHTML = Words.innerHTML + Mentor_coming;
+                                // initBk();
+                                words.scrollTop = words.scrollHeight;
+                            }
                         }
-                        words.scrollTop = words.scrollHeight;
+                     
+                        Words.scrollTop = Words.scrollHeight;
                     }
-                );
+                )};
                 TalkWords.value = ""
                 // Words.innerHTML = Words.innerHTML + str;
                 words.scrollTop = words.scrollHeight;
