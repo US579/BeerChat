@@ -32,6 +32,11 @@
 >> pip install -r requirment.txt
 >> python3 __init__.py
 ```
+or
+
+```
+>> sh start_bk.sh
+```
 
 ### Attention
 
