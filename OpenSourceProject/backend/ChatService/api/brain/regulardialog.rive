@@ -11,17 +11,24 @@
 + where are you from
 - I'm from China :)
 
-+ my name is *
-- Oh hey <star>.
-
 + i am happy
 - I'm happy,too.
 
 + life is so hard
 - Yes, but life is also amazing.
 
-+ *
-- Sorry I don't understand.
-
 + is there anything that you can do
 - how about dancing?
+
++ my name is *
+- <set name=<formal>>I will remember to call you <get name>.
+
++ (what is|do you know) my name
+* <get name> != undefined => Yes, your name is <get name>!
+- I don't know your name.
+
++ google *
+- Google search: "http://google.com/search?q=<star>"
+
++ *
+- Sorry I don't understand.
