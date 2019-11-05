@@ -28,7 +28,7 @@ function initPage(){
     if (sessionStorage.length){
         for (var i = 0; i < sessionStorage.length; i++) {
             if(sessionStorage.getItem(i)==""){continue};
-            if (i%2==1){
+            if (i%2==0){
                 let Atalk = createElement("div", null, { class: "btalk" })
                 Atalk.appendChild(createElement("span", sessionStorage.getItem(i), { id: "asay" }))
                 talk_show.appendChild(Atalk);
