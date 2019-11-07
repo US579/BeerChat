@@ -47,7 +47,7 @@ better use incognito window as normal window may block port
 
 * chat interface
 
-<div align=center><img width="100%" height="500" src="https://github.com/US579/507/blob/master/img/chat.png"/></div>
+<div align=center><img width="100%" height="400" src="https://github.com/US579/507/blob/master/img/chat.png"/></div>
 
 * longin signup interface
 
@@ -55,4 +55,4 @@ better use incognito window as normal window may block port
 
 * chatbot
 
-<div align=center><img width="600" height="300" src="https://github.com/US579/507/blob/master/img/chatwithchatbot.png"/></div>
+<div align=center><img width="600" height="400" src="https://github.com/US579/507/blob/master/img/chatwithchatbot.png"/></div>
