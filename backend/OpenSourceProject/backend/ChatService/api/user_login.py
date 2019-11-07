@@ -21,4 +21,4 @@ class UserLogin(Resource):
         if data is None:
             return make_response(jsonify(message="Invalid username/password supplied"),400)
         token = jwt.encode({'email':g.args['email'],'exp':datetime.datetime.utcnow()+datetime.timedelta(days=1)},config.Secret_Key)
-        return make_response(jsonify(token = token.decode('UTF-8'), role = data['role']),200)
+        return make_response(jsonify(token = token.decode('UTF-8')),200)
