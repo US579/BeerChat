@@ -163,7 +163,7 @@ window.onload = function() {
                 if (sessionStorage.getItem("mentor")!=1){
                 chrome.runtime.sendMessage(
                     { contentScriptQuery: TalkWords.value,
-                      huaci:0
+                      huaci:"0"
                     },
                     function (res) {
                         var Words = document.getElementById("words");
@@ -240,7 +240,7 @@ function translation(word, el, e) {
         if(key){
         chrome.runtime.sendMessage(
             { contentScriptQuery: word,
-              huaci:1 },
+              huaci:"1" },
             function (res) {
                 console.log(res.messge);
                 let result = res.messge;
