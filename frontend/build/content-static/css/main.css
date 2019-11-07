@@ -80,7 +80,7 @@
 }
 .btalk{
     margin:10px;
-    text-align:left;
+    text-align:right;
 }
 #mid{
     text-align: center;
@@ -92,4 +92,5 @@
     border-radius:10px;
     color:#fff;
     padding:5px 10px;
+    text-align:left;
 }
