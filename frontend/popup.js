@@ -5,17 +5,16 @@
 
 'use strict';
 
+ 
 let chatbox = document.getElementById('chatbox');
 chatbox.onclick = function (element) {
-  // var bg = chrome.extension.getBackgroundPage();
-  // bg.test();
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { message: "close" }, function (response) {
     });//end  sendMessage   
   }); //end query
 };
 
-
+// display button function 
 chrome.storage.sync.get(['key'], function (result) {
   var key = result.key;
   if (!key){
@@ -27,7 +26,7 @@ chrome.storage.sync.get(['key'], function (result) {
   }
 })
 
-// for login
+// login display fucntion 
 let onBut1 = document.getElementById("login");
 const dc1 = document.getElementById("login-popup");
 let onBut2 = document.getElementById("signup");
@@ -89,6 +88,7 @@ login_submit.onclick = () =>{
   })
 }
 
+// logout 
 let logout = document.getElementById("logout");
 logout.onclick=()=>{
   let login = document.getElementById("login");
@@ -105,6 +105,7 @@ logout.onclick=()=>{
   });
 }
 
+// submit to backend
 const signup_submit = document.getElementById("signup-submit");
 signup_submit.onclick = () => {
   let url = "http://127.0.0.1:5000/ChatService/user/register";

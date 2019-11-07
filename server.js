@@ -10,23 +10,24 @@ server.on('close', function close() {
   console.log('disconnected');
 });
 
+
 server.on('connection', function connection(ws, req) {
   const ip = req.connection.remoteAddress;
   const port = req.connection.remotePort;
-  const clientName = ip + port;
+  const clientName =port;
 
   console.log('%s is connected', clientName)
 
-  // 发送欢迎信息给客户端
-  ws.send("Welcome " + clientName);
+
+  ws.on('error', () => console.log('errored'));
 
   ws.on('message', function incoming(message) {
     console.log('received: %s from %s', message, clientName);
-    
-    // 广播消息给所有客户端
+
+    // boardcast to all the users
     server.clients.forEach(function each(client) {
-      if (client.readyState === WebSocket.OPEN) {
-        client.send( clientName + " -> " + message);
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(message);
       }
     });
 
