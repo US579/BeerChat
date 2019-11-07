@@ -27,8 +27,5 @@
 * <get name> != undefined => Yes, your name is <get name>!
 - I don't know your name.
 
-+ google *
-- Google search: "http://google.com/search?q=<star>"
-
 + *
-- Sorry I don't understand.
+- Google search: "http://google.com/search?q=<star>"

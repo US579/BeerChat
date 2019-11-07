@@ -48,6 +48,9 @@ class Chatbot(Resource):
         if "intent" not in entities:
             return None
         intent = text["entities"]["intent"][0]["value"]
+        if intent == "function_search":
+            return None
+
         if intent == "Loop_function":
             m_function ="This is a Loop Function, since the key world " +\
                       text["entities"]["loop_tag"][0]["value"]

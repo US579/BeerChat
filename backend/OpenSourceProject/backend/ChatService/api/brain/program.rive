@@ -1,32 +1,32 @@
 + * type function
-- <set type=<formal>> Ok, I will remember the type name.
+- <set type=<formal>> Ok, I will remember the type name <get type>.
 
 + *isdigit()
-* <get type> == string => Returns True if all characters in the string are digits
+* <get type> == String => Returns True if all characters in the string are digits
 
 + *isalpha()
-* <get type> == string => Returns True if all characters in the string are in the alphabet
+* <get type> == String => Returns True if all characters in the string are in the alphabet
 
 + *upper()
-* <get type> == string => Converts a string into upper case, Return a copy of the string with all the cased characters converted to uppercase.
+* <get type> == String => Converts a string into upper case, Return a copy of the string with all the cased characters converted to uppercase.
 
 + *translate()
-* <get type> == string => Returns a translated string
+* <get type> == String => Returns a translated string
 
 + *lower()
-* <get type> == string => if <star> is string type, return a copy of the string with all the cased characters converted to lowercase.
+* <get type> == String => if <star> is string type, return a copy of the string with all the cased characters converted to lowercase.
 
 + *split()
-* <get type> == string => Splits the string at the specified separator, and returns a list
+* <get type> == String => Splits the string at the specified separator, and returns a list
 
 + *endswith()
-* <get type> == string => Returns true if the string ends with the specified value
+* <get type> == String => Returns true if the string ends with the specified value
 
 + *lstrip()
-* <get type> == string => Returns a left trim version of the string
+* <get type> == String => Returns a left trim version of the string
 
 + *encode()
-* <get type> == string => Returns an encoded version of the string
+* <get type> == String => Returns an encoded version of the string
 
 + *startswith()
-* <get type> == string => Returns true if the string starts with the specified value
+* <get type> == String => Returns true if the string starts with the specified value

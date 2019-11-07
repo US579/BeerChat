@@ -6,3 +6,5 @@ six
 jwt
 pyjwt
 rivescript
+pymongo
+wit
