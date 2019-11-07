@@ -232,16 +232,20 @@ function translation(word, el, e) {
     if (word === null || word === undefined)
         return null;
     var result = "";
-    chrome.runtime.sendMessage(
-        { contentScriptQuery: word },
-        function (res) {
-            console.log(res.messge);
-            let result = res.messge;
-            el.style.left = "" + e.pageX + "px";
-            el.style.top = "" + e.pageY + "px";
-            el.innerHTML = result;
-            el.style.display = "block";
-        })
+    chrome.storage.sync.get(['key'], function (result) {
+        var key = result.key;
+        if(key){
+        chrome.runtime.sendMessage(
+            { contentScriptQuery: word },
+            function (res) {
+                console.log(res.messge);
+                let result = res.messge;
+                el.style.left = "" + e.pageX + "px";
+                el.style.top = "" + e.pageY + "px";
+                el.innerHTML = result;
+                el.style.display = "block";
+            })}
+    })
     return result;
 }
 //get the word text when user select
