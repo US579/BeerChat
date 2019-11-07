@@ -162,7 +162,9 @@ window.onload = function() {
                 sessionStorage.setItem(sessionStorage.length, TalkWords.value);
                 if (sessionStorage.getItem("mentor")!=1){
                 chrome.runtime.sendMessage(
-                    { contentScriptQuery: TalkWords.value },
+                    { contentScriptQuery: TalkWords.value,
+                      huaci:0
+                    },
                     function (res) {
                         var Words = document.getElementById("words");
                         Words.innerHTML = Words.innerHTML + str;
@@ -237,7 +239,8 @@ function translation(word, el, e) {
         var key = result.key;
         if(key){
         chrome.runtime.sendMessage(
-            { contentScriptQuery: word },
+            { contentScriptQuery: word,
+              huaci:1 },
             function (res) {
                 console.log(res.messge);
                 let result = res.messge;

@@ -28,7 +28,11 @@ chrome.runtime.onMessage.addListener(
       })
       let token = localStorage.getItem("token")
       // request to the backend 
-      let url = "http://127.0.0.1:5000/ChatService/chatbot?message=" + request.contentScriptQuery ;
+      let url =
+        "http://127.0.0.1:5000/ChatService/chatbot?message=" +
+        request.contentScriptQuery +
+        "?huaci=" +
+        request.huaci; ;
         console.log(url)
         fetch(url, {
             method: "GET",
