@@ -1,35 +1,32 @@
-
++ * type function
+- <set type=<formal>> Ok, I will remember the type name <get type>.
 
 + *isdigit()
-- if <star> is string type, Returns True if all characters in the string are digits
-^ if <star> is a byte type, Return true if all bytes in the sequence are ASCII decimal digits and the sequence is not empty, false otherwise. ASCII decimal digits are those byte values in the sequence b'0123456789'.
+* <get type> == String => Returns True if all characters in the string are digits
 
 + *isalpha()
-- Returns True if all characters in the string are in the alphabet
+* <get type> == String => Returns True if all characters in the string are in the alphabet
 
 + *upper()
-- if <star> is string type, Converts a string into upper case
-^ , Return a copy of the string with all the cased characters converted to uppercase.
+* <get type> == String => Converts a string into upper case, Return a copy of the string with all the cased characters converted to uppercase.
 
 + *translate()
-- Returns a translated string
-
+* <get type> == String => Returns a translated string
 
 + *lower()
-- if <star> is bytes type, return a copy of the sequence with all the uppercase ASCII characters converted to their corresponding lowercase counterpart.
-^ if <star> is string type, return a copy of the string with all the cased characters converted to lowercase.
+* <get type> == String => if <star> is string type, return a copy of the string with all the cased characters converted to lowercase.
 
 + *split()
-- Splits the string at the specified separator, and returns a list
+* <get type> == String => Splits the string at the specified separator, and returns a list
 
 + *endswith()
-- Returns true if the string ends with the specified value
+* <get type> == String => Returns true if the string ends with the specified value
 
 + *lstrip()
-- Returns a left trim version of the string
+* <get type> == String => Returns a left trim version of the string
 
 + *encode()
-- Returns an encoded version of the string
+* <get type> == String => Returns an encoded version of the string
 
 + *startswith()
-- Returns true if the string starts with the specified value
+* <get type> == String => Returns true if the string starts with the specified value
