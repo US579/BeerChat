@@ -1,5 +1,7 @@
+// init the the instance 
 const WebSocket = require('ws');
 
+// listen on the prot8080
 const server = new WebSocket.Server({ port: 8080 });
 
 server.on('open', function open() {

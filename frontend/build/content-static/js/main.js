@@ -59,7 +59,7 @@ document.οnkeydοwn = function (e) {
         alert('enter');
     }
 }
-// 
+// clear the token and chat history
 function clearLocalStorage() {
     chrome.storage.local.clear(function () {
         var error = chrome.runtime.lastError;
@@ -106,6 +106,7 @@ window.onload = function() {
         alert("you safari not support WebSocket！");
     }
     
+    // mentor chat part (send the message to the backend)
     function send(message) {
         if (!window.WebSocket) {
             return;
@@ -158,7 +159,6 @@ window.onload = function() {
                 }
 
                 str = '<div class="btalk"><span>' + TalkWords.value+ "</span></div>";
-                // send(TalkWords.value)
                 sessionStorage.setItem(sessionStorage.length, TalkWords.value);
                 if (sessionStorage.getItem("mentor")!=1){
                 chrome.runtime.sendMessage(
@@ -177,7 +177,6 @@ window.onload = function() {
                             '<div class="atalk"><span>' + res.messge  + "</span></div>";
                         sessionStorage.setItem(sessionStorage.length, res.messge);
                         TalkWords.value = "";
-                        // clickMentor.addEventListener("click", toMentor())
                         Words.innerHTML = Words.innerHTML + str2;
                         if (mentor){
                             Words.innerHTML = Words.innerHTML + mentor;
@@ -185,7 +184,6 @@ window.onload = function() {
                                 sessionStorage.setItem("mentor", 1)
                                 alert("change to mentor")
                                 Words.innerHTML = Words.innerHTML + Mentor_coming;
-                                // initBk();
                                 words.scrollTop = words.scrollHeight;
                             }
                         }
@@ -194,7 +192,6 @@ window.onload = function() {
                     }
                 )};
                 TalkWords.value = ""
-                // Words.innerHTML = Words.innerHTML + str;
                 words.scrollTop = words.scrollHeight;
             }
         });
@@ -229,7 +226,7 @@ function hideElement(el) {
     el.style.display = "none";
     el.innerHTML = "";
 }
-
+// send the message to the backend.js to request and receive response than display on the webpage
 function translation(word, el, e) {
     if (word === null || word === undefined)
         return null;
