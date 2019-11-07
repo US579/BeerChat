@@ -21,10 +21,10 @@ function initPage(){
     talk_con.append(bt)
     let talk_show = createElement("div",null, { class: "talk_show",id:"words"})
     let Atalk = createElement("div",null,{class:"atalk"})
-    // alert(localStorage.getItem("status"));
     let Btalk = createElement("div", null, { class: "btalk" })
     Atalk.appendChild(createElement("span","any problems for open source ?",{id:"asay"}))
     talk_show.appendChild(Atalk);
+    // store the chat history in the sessionStorage
     if (sessionStorage.length){
         for (var i = 0; i < sessionStorage.length; i++) {
             if(sessionStorage.getItem(i)==""){continue};
@@ -59,7 +59,7 @@ document.οnkeydοwn = function (e) {
         alert('enter');
     }
 }
-//
+// 
 function clearLocalStorage() {
     chrome.storage.local.clear(function () {
         var error = chrome.runtime.lastError;
@@ -117,7 +117,6 @@ window.onload = function() {
         }
     }
     TalkSub.onclick = function() {
-
         // check whether user login or not 
         chrome.storage.sync.get(['key'], function (result) {
             var key = result.key;
@@ -211,4 +210,56 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     sendResponse({farewell:"ok"})
 });
 
+// selected translation
+(function () {
+    'use strict';
+    var trsBlock = createBlock();
+    document.body.appendChild(trsBlock);
+    window.onmousedown = () => hideElement(trsBlock);
+    window.onmouseup = (e) => translation(getWord(), trsBlock, e);
+})();
 
+function createBlock() {
+    var block = document.createElement("DIV");
+    block.style.cssText = "position: absolute; z-index: 999999; background-color: black; color: white;";
+    return block;
+}
+
+function hideElement(el) {
+    el.style.display = "none";
+    el.innerHTML = "";
+}
+
+function translation(word, el, e) {
+    if (word === null || word === undefined)
+        return null;
+    var result = "";
+    chrome.runtime.sendMessage(
+        { contentScriptQuery: word },
+        function (res) {
+            console.log(res.messge);
+            let result = res.messge;
+            el.style.left = "" + e.pageX + "px";
+            el.style.top = "" + e.pageY + "px";
+            el.innerHTML = result;
+            el.style.display = "block";
+        })
+    return result;
+}
+//get the word text when user select
+function getWord() {
+    var word = window.getSelection().toString();
+    if (word === "")
+        return;
+    return word;
+}
+// obtain the x , y position 
+function mouseCoords(ev) {
+    if (ev.pageX || ev.pageY) {
+        return { x: ev.pageX, y: ev.pageY };
+    }
+    return {
+        x: ev.clientX + document.body.scrollLeft - document.body.clientLeft,
+        y: ev.clientY + document.body.scrollTop - document.body.clientTop
+    };
+}
