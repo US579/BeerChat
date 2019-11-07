@@ -171,13 +171,6 @@
         },
         "password": {
           "type": "string"
-        },
-        "role": {
-          "type": "string",
-          "enum": [
-            "mentor",
-            "learner"
-          ]
         }
       },
       "xml": {

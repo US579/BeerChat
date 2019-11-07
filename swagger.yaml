@@ -129,10 +129,5 @@ definitions:
         type: "string"
       password:
         type: "string"
-      role:
-        type: "string"
-        enum:
-        - "mentor"
-        - "learner"
     xml:
       name: "User"
