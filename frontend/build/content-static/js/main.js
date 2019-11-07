@@ -77,7 +77,7 @@ window.onload = function() {
     var TalkSub = document.getElementById("talksub");
     var Mentor_coming =
       '<div style="text-align: center; padding:5px 10px;color: red;">' +
-      "Hi I am mentor US579 🧐🧐🧐" +
+      "Hi Ask them who browse the same page with you 🍻" +
       "</div>";
     var socket = new WebSocket("ws://localhost:8080/ws");
     // var socket = new WebSocket("ws://192.169.1.2:8080/ws");
@@ -166,10 +166,11 @@ window.onload = function() {
                     function (res) {
                         var Words = document.getElementById("words");
                         Words.innerHTML = Words.innerHTML + str;
-                        if (res.messge == "Sorry I don't understand.") {
+                        console.log(res.messge.substring(0,6));
+                        if (res.messge.substring(0, 6) == "Google") {
                             var mentor =
                               '<div style="text-align: center; padding:5px 10px;">' +
-                              "Oops, Maybe you need a mentor ! <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
+                              "Oops, Wanna to chat with bunch of mentors? <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
                               "</div>";
                         }
 

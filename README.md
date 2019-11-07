@@ -42,3 +42,8 @@ or
 ### Attention
 
 better use incognito window as normal window may block port 
+
+### Demo
+
+
+<div align=center><img width="300" height="300" src="https://github.com/US579/COMP9318-19T1/blob/master/lab3/regression.png"/></div>
