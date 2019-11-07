@@ -219,13 +219,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 function createBlock() {
     var block = document.createElement("DIV");
-    block.style.cssText = "position: absolute; z-index: 999999; background-color: black; color: white;";
+    block.className= "btalk";
+    block.style.cssText = "position: absolute; z-index: 999999;";
     return block;
 }
 
 function hideElement(el) {
     el.style.display = "none";
-    el.innerHTML = "";
+    el.span.innerHTML = "";
 }
 // send the message to the backend.js to request and receive response than display on the webpage
 function translation(word, el, e) {
@@ -242,7 +243,8 @@ function translation(word, el, e) {
                 let result = res.messge;
                 el.style.left = "" + e.pageX + "px";
                 el.style.top = "" + e.pageY + "px";
-                el.innerHTML = result;
+                console.log(el)
+                el.innerHTML = "<span>"+ result +"</span>";
                 el.style.display = "block";
             })}
     })
