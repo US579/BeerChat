@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener(
         "http://127.0.0.1:5000/ChatService/chatbot?message=" +
         request.contentScriptQuery +
         "?huaci=" +
-        request.huaci; ;
+        request.huaci;
         console.log(url)
         fetch(url, {
             method: "GET",
