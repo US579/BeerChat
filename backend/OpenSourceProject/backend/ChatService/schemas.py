@@ -53,7 +53,7 @@ base_path = '/ChatService'
 definitions = {'definitions': {'User': {'type': 'object', 'properties': {'email': {'type': 'string'}, 'password': {'type': 'string'}}, 'xml': {'name': 'User'}}}, 'parameters': {}}
 
 validators = {
-    ('chatbot', 'GET'): {'headers': {'required': ['Token'], 'properties': {'Token': {'type': 'string'}}}, 'args': {'required': ['message'], 'properties': {'message': {'type': 'string'}}}},
+    ('chatbot', 'GET'): {'headers': {'required': ['Token'], 'properties': {'Token': {'type': 'string'}}}, 'args': {'required': ['message', 'huaci'], 'properties': {'message': {'type': 'string'}, 'huaci': {'type': 'boolean'}}}},
     ('user_register', 'POST'): {'json': {'$ref': '#/definitions/User'}},
     ('user_login', 'GET'): {'args': {'required': ['email', 'password'], 'properties': {'email': {'description': 'The email for login', 'type': 'string'}, 'password': {'description': 'The password for login in clear text', 'type': 'string'}}}},
 }

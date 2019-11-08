@@ -8,38 +8,13 @@ from .. import schemas,config
 import jwt
 import os
 import json
-
-
+from googletrans import Translator
 from wit import Wit
 access_token = "ABJWGG53QBEVM6UY6AUMBPNP42EQCXOZ"
 client = Wit(access_token)
-
-
 rs = RiveScript()
-rs.load_directory(os.getcwd())
-rs.sort_replies()
 import datetime
 class Chatbot(Resource):
-
-    def get(self):
-        try:
-            data = jwt.decode(g.headers['Token'],config.Secret_Key)
-        except Exception:
-            return make_response(jsonify(message = 'invalid token'), 401)
-        #print(g.args['message'])
-        resp = client.message(g.args['message'])
-        resp = self.wit_response(resp)
-        #print("*"*100)
-        #print(rs.reply(data['email'], g.args['message']))
-        #print(resp)
-        if resp == None:
-            return make_response(jsonify(messge=rs.reply(data['email'], g.args['message'])))
-        else:
-            return make_response(jsonify(messge=resp))
-        # if rs.reply(data['email'], g.args['message']) == "Sorry I don't understand.":
-        #     return make_response(jsonify(messge = resp ))
-        # return make_response(jsonify(messge = rs.reply(data['email'], g.args['message'])))
-
     def wit_response(self,text):
         #print(json.dumps(text, indent=4))
         #print(text["_text"])
@@ -67,3 +42,29 @@ class Chatbot(Resource):
                     m_condition += i + " is " + c[i][0]["value"] +"; "
 
         return message + m_function + m_condition
+
+
+
+    def get(self):
+        try:
+            data = jwt.decode(g.headers['Token'],config.Secret_Key)
+        except Exception:
+            return make_response(jsonify(message = 'invalid token'), 401)
+        #print(g.args['message'])
+        if(g.args['huaci'] == False):  
+            print('22')
+            rs.load_directory(os.path.abspath('.'))
+            rs.sort_replies()
+            resp = client.message(g.args['message'])
+            resp = self.wit_response(resp)
+            if resp == None:
+                return make_response(jsonify(messge=rs.reply(data['email'], g.args['message'])))
+            else:
+                return make_response(jsonify(messge=resp))
+        else:
+            print(11)
+            # rs.load_directory(os.path.abspath('./api/huaci'))
+            # rs.sort_replies()
+            translator = Translator()
+            x = translator.translate(g.args['message'],dest = 'zh-cn')
+            return make_response(jsonify(messge=x.text))

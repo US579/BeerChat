@@ -46,6 +46,12 @@
             "in": "query",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "huaci",
+            "in": "query",
+            "required": true,
+            "type": "boolean"
           }
         ],
         "responses": {
