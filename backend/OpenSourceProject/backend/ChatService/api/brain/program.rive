@@ -30,3 +30,21 @@
 
 + *startswith()
 * <get type> == String => Returns true if the string starts with the specified value
+
++ *append()
+* <get type> == List => Adds an element at the end of the list
+
++ *clear()
+* <get type> == List => Removes all the elements from the list
+
++ *copy()
+* <get type> == List => Returns a copy of the list
+
++ *count()
+* <get type> == List => Returns the number of elements with the specified value
+
++ *extend()
+* <get type> == List => Add the elements of a list (or any iterable), to the end of the current list
+
++ *index()
+* <get type> == List => Returns the index of the first element with the specified value

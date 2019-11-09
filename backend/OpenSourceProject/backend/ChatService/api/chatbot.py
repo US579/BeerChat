@@ -22,26 +22,26 @@ class Chatbot(Resource):
         entities = list(text["entities"].keys())
         if "intent" not in entities:
             return None
-        intent = text["entities"]["intent"][0]["value"]
-        if intent == "function_search":
-            return None
-
-        if intent == "Loop_function":
-            m_function ="This is a Loop Function, since the key world " +\
-                      text["entities"]["loop_tag"][0]["value"]
-        if intent == "Conditional_statement":
-            m_function = "This is a Conditions Statement, since the key world " + \
+        try:
+            intent = text["entities"]["intent"][0]["value"]
+            if intent == "function_search":
+                return None
+            if intent == "Loop_function":
+                m_function ="This is a Loop Function, since the key word " +\
+                    text["entities"]["loop_tag"][0]["value"]
+            if intent == "Conditional_statement":
+                m_function = "This is a Condition Statement, since the key word " + \
                        text["entities"]["condition_statement_tag"][0]["value"]
-
-        if "condition" in entities:
-            condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
-            c = text["entities"]["condition"][0]["entities"]
-            m_condition = ". The rest is condition: " +text["entities"]["condition"][0]["value"] + "; it can split into several parts: "
-            for i in condition_entities:
-                if i!= "intent":
-                    m_condition += i + " is " + c[i][0]["value"] +"; "
-
-        return message + m_function + m_condition
+            if "condition" in entities:
+                condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
+                c = text["entities"]["condition"][0]["entities"]
+                m_condition = ". The rest is condition: " +text["entities"]["condition"][0]["value"] + "; it can split into several parts: "
+                for i in condition_entities:
+                    if i!= "intent":
+                        m_condition += i + " is " + c[i][0]["value"] +"; "
+            return message + m_function + m_condition
+        except Exception:
+            return None
 
 
 
@@ -52,8 +52,7 @@ class Chatbot(Resource):
             return make_response(jsonify(message = 'invalid token'), 401)
         #print(g.args['message'])
         if(g.args['huaci'] == False):  
-            print('22')
-            rs.load_directory(os.path.abspath('.'))
+            rs.load_directory(os.path.abspath('./ChatService/api/brain'))
             rs.sort_replies()
             resp = client.message(g.args['message'])
             resp = self.wit_response(resp)
@@ -62,9 +61,18 @@ class Chatbot(Resource):
             else:
                 return make_response(jsonify(messge=resp))
         else:
-            print(11)
-            # rs.load_directory(os.path.abspath('./api/huaci'))
-            # rs.sort_replies()
-            translator = Translator()
-            x = translator.translate(g.args['message'],dest = 'zh-cn')
-            return make_response(jsonify(messge=x.text))
+            rs.load_directory(os.path.abspath('./ChatService/api/brain2'))
+            rs.sort_replies()
+            resp = client.message(g.args['message'])
+            resp = self.wit_response(resp)
+            if resp == None:
+                if rs.reply(data['email'], g.args['message']) != "[ERR: No Reply Matched]":
+                    return make_response(jsonify(messge=rs.reply(data['email'], g.args['message'])))
+                else:
+                    translator = Translator()
+                    x = translator.translate(g.args['message'],dest = 'zh-cn')
+                    return make_response(jsonify(messge=x.text))
+            else:
+                return make_response(jsonify(messge=resp))
+
+            

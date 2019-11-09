@@ -1,0 +1,2 @@
++ *isdigit()
+- Returns True if all characters in the (string or bytes) are digits
