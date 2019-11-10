@@ -1,2 +1,17 @@
 + *isdigit()
 - Returns True if all characters in the (string or bytes) are digits
+
++ *append()
+- Adds an element at the end of the list
+
++ *clear()
+- Removes all the elements
+
++ *pop()
+- Removes the element at the specified position
+
++ *close()
+- Closes the file
+
++ *read()
+- Returns the file content
