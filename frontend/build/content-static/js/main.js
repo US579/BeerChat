@@ -22,8 +22,7 @@ function initPage(){
     let talk_show = createElement("div",null, { class: "talk_show",id:"words"})
     let Atalk = createElement("div",null,{class:"atalk"})
     let Btalk = createElement("div", null, { class: "btalk" })
-    Atalk.appendChild(createElement("span","Any problem about open-source?\
-    (For specific function of python, please type eg: string type function.)",{id:"asay"}))
+    Atalk.appendChild(createElement("span","Any problem about open-source?(For specific function of python, please type eg: string type function.)",{id:"asay"}))
     talk_show.appendChild(Atalk);
     // store the chat history in the sessionStorage
     if (sessionStorage.length){

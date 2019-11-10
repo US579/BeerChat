@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from __future__ import absolute_import, print_function
 
 from flask import request, g, make_response, jsonify
@@ -13,6 +12,7 @@ from wit import Wit
 access_token = "ABJWGG53QBEVM6UY6AUMBPNP42EQCXOZ"
 client = Wit(access_token)
 rs = RiveScript()
+rs1 = RiveScript()
 import datetime
 class Chatbot(Resource):
     def wit_response(self,text):
@@ -27,18 +27,18 @@ class Chatbot(Resource):
             if intent == "function_search":
                 return None
             if intent == "Loop_function":
-                m_function ="This is a Loop Function, since the key word " +\
-                    text["entities"]["loop_tag"][0]["value"]
+                m_function ="This is a Loop Function. The key word: \" " +\
+                    text["entities"]["loop_tag"][0]["value"] + "\" represents the loop."
             if intent == "Conditional_statement":
-                m_function = "This is a Condition Statement, since the key word " + \
-                       text["entities"]["condition_statement_tag"][0]["value"]
+                m_function = "This is a Condition Statement. The key word: \"" + \
+                       text["entities"]["condition_statement_tag"][0]["value"] + "\" represents the condition starts."
             if "condition" in entities:
                 condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
                 c = text["entities"]["condition"][0]["entities"]
-                m_condition = ". The rest is condition: " +text["entities"]["condition"][0]["value"] + "; it can split into several parts: "
+                m_condition = ". The following is condition: \"" +text["entities"]["condition"][0]["value"] + "\", it can split into several parts: "
                 for i in condition_entities:
                     if i!= "intent":
-                        m_condition += i + " is " + c[i][0]["value"] +"; "
+                        m_condition += "\"" + i  + "\" is " + c[i][0]["value"] +"; "
             return message + m_function + m_condition
         except Exception:
             return None
@@ -61,18 +61,16 @@ class Chatbot(Resource):
             else:
                 return make_response(jsonify(messge=resp))
         else:
-            rs.load_directory(os.path.abspath('./ChatService/api/brain2'))
-            rs.sort_replies()
+            rs1.load_directory(os.path.abspath('./ChatService/api/brain2'))
+            rs1.sort_replies()
             resp = client.message(g.args['message'])
             resp = self.wit_response(resp)
             if resp == None:
-                if rs.reply(data['email'], g.args['message']) != "[ERR: No Reply Matched]":
-                    return make_response(jsonify(messge=rs.reply(data['email'], g.args['message'])))
+                if rs1.reply(data['email'], g.args['message']) != "[ERR: No Reply Matched]":
+                    return make_response(jsonify(messge=rs1.reply(data['email'], g.args['message'])))
                 else:
                     translator = Translator()
                     x = translator.translate(g.args['message'],dest = 'zh-cn')
                     return make_response(jsonify(messge=x.text))
             else:
                 return make_response(jsonify(messge=resp))
-
-            
