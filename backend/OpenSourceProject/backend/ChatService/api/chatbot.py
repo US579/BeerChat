@@ -20,25 +20,40 @@ class Chatbot(Resource):
         #print(text["_text"])
         message = "Analysing the code " + text["_text"] + " : "
         entities = list(text["entities"].keys())
+        print(entities)
         if "intent" not in entities:
             return None
         try:
             intent = text["entities"]["intent"][0]["value"]
+            print(intent)
             if intent == "function_search":
                 return None
             if intent == "Loop_function":
                 m_function ="This is a Loop Function. The key word: \" " +\
                     text["entities"]["loop_tag"][0]["value"] + "\" represents the loop."
             if intent == "Conditional_statement":
+                print("????")
                 m_function = "This is a Condition Statement. The key word: \"" + \
                        text["entities"]["condition_statement_tag"][0]["value"] + "\" represents the condition starts."
+                print(m_function)
             if "condition" in entities:
-                condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
-                c = text["entities"]["condition"][0]["entities"]
-                m_condition = ". The following is condition: \"" +text["entities"]["condition"][0]["value"] + "\", it can split into several parts: "
-                for i in condition_entities:
-                    if i!= "intent":
-                        m_condition += "\"" + i  + "\" is " + c[i][0]["value"] +"; "
+                # print("!!!")
+                # print(list(text["entities"]["condition"]))
+                # print(list(text["entities"]["condition"][0]))
+                # print(text["entities"]["condition"][0]["value"])
+                if "entities" not in list(text["entities"]["condition"][0]):
+                    #print("aaaa")
+                    m_condition = ". The following is condition: \"" + text["entities"]["condition"][0]["value"]+ "\" ."
+                else:
+                    condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
+                    #print(condition_entities)
+                    c = text["entities"]["condition"][0]["entities"]
+
+                    m_condition = ". The following is condition: \"" +text["entities"]["condition"][0]["value"] + "\", it can split into several parts: "
+                    for i in condition_entities:
+                        if i!= "intent":
+                            m_condition += "\"" + i  + "\" is " + c[i][0]["value"] +"; "
+                # print(m_condition)
             return message + m_function + m_condition
         except Exception:
             return None
