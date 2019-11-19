@@ -32,9 +32,14 @@ class Chatbot(Resource):
                 m_function ="This is a Loop Function. The key word: \" " +\
                     text["entities"]["loop_tag"][0]["value"] + "\" represents the loop."
             if intent == "Conditional_statement":
-                print("????")
-                m_function = "This is a Condition Statement. The key word: \"" + \
-                       text["entities"]["condition_statement_tag"][0]["value"] + "\" represents the condition starts."
+                print("????:")
+                print(json.dumps(text["entities"],indent=4))
+                if "loop_tag" in text["entities"]:
+                    m_function = "This is a Loop Statement. The key word: \"" + \
+                                 text["entities"]["loop_tag"][0]["value"] + "\" represents the loop starts."
+                else:
+                    m_function = "This is a Condition Statement. The key word: \"" + \
+                            text["entities"]["condition_statement_tag"][0]["value"] + "\" represents the condition starts."
                 print(m_function)
             if "condition" in entities:
                 # print("!!!")
