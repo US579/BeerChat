@@ -23,6 +23,14 @@ class Chatbot(Resource):
         print(entities)
         if "intent" not in entities:
             return None
+        F = text['_text'].split()
+        if F[0]!="for" or "if"!=F[0] or "while"!=F[0]:
+            return None
+        if "in" in F:
+            index = F.index("in")
+            if index == len(F)-1 or F[index+1]!="range":
+                return None
+        #print(text['_text'])
         try:
             intent = text["entities"]["intent"][0]["value"]
             print(intent)
