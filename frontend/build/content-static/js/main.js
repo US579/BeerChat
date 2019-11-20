@@ -14,6 +14,8 @@ function initPage(){
     const app = createElement("div", null, { class: "container", id: "maaaaan", style:"display:none"});
     let talk_con = createElement("div", null, { class: "talk_con"})
     const bt = createElement("button",null, { id:"btt", alt: "" })
+    //Set up listening mode.
+    const modebt = createElement("button",null, { id:"mtt", alt: "" })
     bt.onclick = function () {
         app.style.display = "none";
         sessionStorage.setItem("mentor",0)
@@ -23,6 +25,7 @@ function initPage(){
     let Atalk = createElement("div",null,{class:"atalk"})
     let Btalk = createElement("div", null, { class: "btalk" })
     Atalk.appendChild(createElement("span","Any problem about open-source?(For specific function of python, please type eg: string type function.)",{id:"asay"}))
+    Atalk.appendChild(createElement("span","Also, if you want to hear questions from other users, please hit the Mode button below! ",{id:"asay"}))
     talk_show.appendChild(Atalk);
     // store the chat history in the sessionStorage
     if (sessionStorage.length){
@@ -42,6 +45,7 @@ function initPage(){
     let talk_input = createElement("div",null,{class:"talk_input"})
     talk_input.appendChild(createElement("input",null,{type:"text",class:"talk_word",id:"talkwords"}))
     talk_input.appendChild(createElement("input", null, { type: "button", value:"send",class: "talk_sub", id: "talksub" }))
+    talk_input.appendChild(createElement("input", null, { type: "button", value:"Mode",class: "talk_sub", id: "Mentor_mode" }))
     talk_con.appendChild(talk_show)
     talk_con.appendChild(talk_input)
     app.appendChild(talk_con)
@@ -74,6 +78,8 @@ function clearLocalStorage() {
 window.onload = function() {
     var Words = document.getElementById("words");
     var TalkWords = document.getElementById("talkwords");
+    var mentor_mode = document.getElementById("Mentor_mode");
+    var Mode_on = false;
     var TalkSub = document.getElementById("talksub");
     var Mentor_coming =
       '<div style="text-align: center; padding:5px 10px;color: red;">' +
@@ -99,7 +105,10 @@ window.onload = function() {
                 '<div class="atalk"><span>' +
                 event.data+
                 "</span></div>";
-            Words.innerHTML = Words.innerHTML + str3;
+            if (Mode_on) {
+                Words.innerHTML = Words.innerHTML + str3;
+            }
+            // Words.innerHTML = Words.innerHTML + str3;
             Words.scrollTop = words.scrollHeight;
         }
     } else {
@@ -117,6 +126,7 @@ window.onload = function() {
             alert("connect is not open");
         }
     }
+    
     TalkSub.onclick = function() {
         // check whether user login or not 
         chrome.storage.sync.get(['key'], function (result) {
@@ -171,9 +181,13 @@ window.onload = function() {
                         console.log(res.messge.substring(0,6));
                         if (res.messge.substring(0, 6) == "Google") {
                             var mentor =
-                              '<div style="text-align: center; padding:5px 10px;">' +
-                              "Oops, Wanna to chat with bunch of mentors? <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
-                              "</div>";
+                            //   '<div style="text-align: center; padding:5px 10px;">' +
+                            //   "Oops, Wanna to chat with bunch of mentors? <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
+                            //   "</div>";
+
+                            '<div style="text-align: center; padding:5px 10px;">' +
+                            "Oops, Wanna to chat with bunch of mentors? Please click the Mode button below!" +
+                            "</div>";
                         }
 
                         var str2 =
@@ -200,6 +214,18 @@ window.onload = function() {
         });
       
 
+    }
+
+    mentor_mode.onclick = function () {
+        if(Mode_on == true) {
+            Mode_on = !Mode_on;
+            alert("Mentor mode has been turned off!");
+            sessionStorage.setItem("mentor", 0)
+        }else {
+            Mode_on = !Mode_on;
+            alert("Mentor mode has been turned on!");
+            sessionStorage.setItem("mentor", 1)
+        }
     }
 }
 

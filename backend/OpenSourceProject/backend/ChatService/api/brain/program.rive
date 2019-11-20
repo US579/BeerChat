@@ -48,3 +48,47 @@
 
 + *index()
 * <get type> == List => Returns the index of the first element with the specified value
+
++ *clear()
+* <get type> == Dictionary => Removes all the elements from the dictionary
+
++ *copy()
+* <get type> == Dictionary => Returns a copy of the dictionary
+
++ *get()
+* <get type> == Dictionary => Returns the value of the specified key
+
++ *keys()
+* <get type> == Dictionary => Returns a list containing the dictionary's keys
+
++ *pop()
+* <get type> == Dictionary => Removes the element with the specified key
+
++ *values()
+* <get type> == Dictionary => Returns a list of all the values in the dictionary
+
++ *update()
+* <get type> == Dictionary => Updates the dictionary with the specified key-value pairs
+
++ *close()
+* <get type> == File => Closes the file
+
++ *readline()
+* <get type> == File => Returns one line from the file
+
++ *readlines()
+* <get type> == File => Returns a list of lines from the file
+
++ *write()
+* <get type> == File => Writes the specified string to the file
+
++ *writelines()
+* <get type> == File => Writes a list of strings to the file
+
++ *read()
+* <get type> == File => Returns the file content
+
++ *readable()
+* <get type> == File => Returns whether the file stream can be read or not
+
+
