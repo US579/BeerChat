@@ -179,16 +179,16 @@ function createElement(tag, data, options = {}) {
                           var Words = document.getElementById("words");
                           Words.innerHTML = Words.innerHTML + str;
                           console.log(res.messge.substring(0,6));
-                          if (res.messge.substring(0, 5) == "Sorry") {
-                              var mentor =
-                              //   '<div style="text-align: center; padding:5px 10px;">' +
-                              //   "Oops, Wanna to chat with bunch of mentors? <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
-                              //   "</div>";
+                        //   if (res.messge.substring(0, 5) == "Sorry") {
+                        //       var mentor =
+                        //       //   '<div style="text-align: center; padding:5px 10px;">' +
+                        //       //   "Oops, Wanna to chat with bunch of mentors? <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
+                        //       //   "</div>";
   
-                              '<div style="text-align: center; padding:5px 10px;">' +
-                              "Oops, Wanna to chat with bunch of mentors? Please click the Switch button below!" +
-                              "</div>";
-                          }
+                        //       '<div style="text-align: center; padding:5px 10px;">' +
+                        //       "Oops, Wanna to chat with bunch of mentors? Please click the Switch button below!" +
+                        //       "</div>";
+                        //   }
   
                           var str2 =
                               '<div class="atalk"><span>' + res.messge  + "</span></div>";

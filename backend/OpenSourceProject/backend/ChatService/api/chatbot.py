@@ -9,7 +9,7 @@ import os
 import json
 from googletrans import Translator
 from wit import Wit
-
+from .. import config
 # the access token for wit ai
 access_token = "ABJWGG53QBEVM6UY6AUMBPNP42EQCXOZ"
 client = Wit(access_token)
@@ -80,23 +80,37 @@ class Chatbot(Resource):
             return None
 
 
-
+    #accept attribute from url
     def get(self):
         try:
+            #analyse token is valid or not
             data = jwt.decode(g.headers['Token'],config.Secret_Key)
         except Exception:
             return make_response(jsonify(message = 'invalid token'), 401)
-        #print(g.args['message'])
+        #analyse whether the word is from chatbox or scanning    
         if(g.args['huaci'] == False):  
+            #load rivescript
             rs.load_directory(os.path.abspath('./ChatService/api/brain'))
             rs.sort_replies()
+            #send to wit.ai
             resp = client.message(g.args['message'])
+            #invoke wit_response
             resp = self.wit_response(resp)
+            #if wit.ai could not give response, then go to rivescript
             if resp == None:
+                print(rs.reply(data['email'], g.args['message'])[0:5])
+                #if can not reply, then record the problem
+                if(rs.reply(data['email'], g.args['message'])[0:5] == "Sorry"):
+                    db = config.connectdb()
+                    collection = db['problem']
+                    problem = {}
+                    problem['problem'] = g.args['message']
+                    collection.insert_one(problem)
                 return make_response(jsonify(messge=rs.reply(data['email'], g.args['message'])))
             else:
                 return make_response(jsonify(messge=resp))
         else:
+            #scanning chatbot
             rs1.load_directory(os.path.abspath('./ChatService/api/brain2'))
             rs1.sort_replies()
             resp = client.message(g.args['message'])
