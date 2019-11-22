@@ -1,4 +1,5 @@
 // author: Wanze liu, z5137189
+
 // help function
 function createElement(tag, data, options = {}) {
   const ele = document.createElement(tag);
@@ -122,7 +123,6 @@ window.onload = function() {
     "Hi Ask them who browse the same page with you 🍻" +
     "</div>";
   var socket = new WebSocket("ws://localhost:8080/ws");
-  // var socket = new WebSocket("ws://192.169.1.2:8080/ws");
   if (!window.WebSocket) {
     window.WebSocket = window.MozWebSocket;
   }
@@ -195,7 +195,6 @@ window.onload = function() {
           alert("Input can not be empty");
           return;
         }
-
         str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
         sessionStorage.setItem(sessionStorage.length, TalkWords.value);
         if (sessionStorage.getItem("mentor") != 1) {
@@ -204,23 +203,12 @@ window.onload = function() {
             function(res) {
               var Words = document.getElementById("words");
               Words.innerHTML = Words.innerHTML + str;
-              console.log(res.messge.substring(0, 6));
-              //   if (res.messge.substring(0, 5) == "Sorry") {
-              //       var mentor =
-              //       //   '<div style="text-align: center; padding:5px 10px;">' +
-              //       //   "Oops, Wanna to chat with bunch of mentors? <a id='mentor';lstyle='cursor:pointer;'>click me</a>" +
-              //       //   "</div>";
-
-              //       '<div style="text-align: center; padding:5px 10px;">' +
-              //       "Oops, Wanna to chat with bunch of mentors? Please click the Switch button below!" +
-              //       "</div>";
-              //   }
-
               var str2 =
                 '<div class="atalk"><span>' + res.messge + "</span></div>";
               sessionStorage.setItem(sessionStorage.length, res.messge);
               TalkWords.value = "";
               Words.innerHTML = Words.innerHTML + str2;
+              Words.scrollTop = words.scrollHeight;
               if (mentor) {
                 Words.innerHTML = Words.innerHTML + mentor;
                 document.getElementById(
@@ -263,11 +251,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 // selected translation
-
 (function() {
   "use strict";
   var trsBlock = createBlock();
-
   document.body.appendChild(trsBlock);
   window.onmousedown = () => hideElement(trsBlock);
   window.onmouseup = e => translation(getWord(), trsBlock, e);
@@ -313,6 +299,7 @@ function translation(word, el, e) {
   });
   return result;
 }
+
 //get the word text when user select
 function getWord() {
   var word = window.getSelection().toString();

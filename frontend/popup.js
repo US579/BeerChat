@@ -126,42 +126,26 @@ logout.onclick = () => {
   });
 };
 
-// chrome.storage.sync.get(["onoff"], function (result) {
-//   alert('onofffff')
-//     var onoff = result.onoff;
-//     if (onoff){
-//       checkbox.checked = true;
-//     }else{
-//       checkbox.checked = false;
-//     }
-// })
-
 
 let ckbox = document.getElementById("ckbox");
 ckbox.onclick = function() {
   chrome.storage.sync.get(["onoff"], function (result) {
     if (result.onoff){
       chrome.storage.sync.set({ onoff: 0 }, function () {
-        // console.log(result.onoff);
       });
     }else{
       chrome.storage.sync.set({ onoff: 1 }, function () {
-        // console.log(result.onoff)
       });
     }
   })
-
 };
-
 
 // submit to backend
 const signup_submit = document.getElementById("signup-submit");
 signup_submit.onclick = () => {
   let url = "http://127.0.0.1:5000/ChatService/user/register";
   var username_signup = document.getElementById("signup-username").value;
-  // var email_signup = document.getElementById("signup-role").value;
   var password_signup = document.getElementById("signup-password").value;
-  console.log(url);
   fetch(url, {
     method: "POST",
     headers: {
@@ -172,7 +156,6 @@ signup_submit.onclick = () => {
     body: JSON.stringify({
       email: username_signup,
       password: password_signup
-      // "role":email_signup
     })
   })
     .then(res => res.json())
