@@ -20,17 +20,14 @@ server.on('connection', function connection(ws, req) {
 
 
   ws.on('error', () => console.log('errored'));
-
   ws.on('message', function incoming(message) {
     console.log('received: %s from %s', message, clientName);
 
     // boardcast to all the users
     server.clients.forEach(function each(client) {
       if (client !== ws && client.readyState === WebSocket.OPEN) {
-        client.send(message);
+        client.send(clientName+"@"+message);
       }
     });
-
   });
-
 });
