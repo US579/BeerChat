@@ -120,10 +120,6 @@ window.onload = function() {
   var mentor_mode = document.getElementById("Mentor_mode");
   var Mode_on = false;
   var TalkSub = document.getElementById("talksub");
-  var Mentor_coming =
-    '<div style="text-align: center; padding:5px 10px;color: red;">' +
-    "Hi Ask them who browse the same page with you 🍻" +
-    "</div>";
   var socket = new WebSocket("ws://localhost:8080/ws");
   if (!window.WebSocket) {
     window.WebSocket = window.MozWebSocket;
@@ -215,18 +211,6 @@ window.onload = function() {
               sessionStorage.setItem(sessionStorage.length, res.messge);
               TalkWords.value = "";
               Words.innerHTML = Words.innerHTML + str2;
-              Words.scrollTop = words.scrollHeight;
-              // if (mentor) {
-              //   Words.innerHTML = Words.innerHTML + mentor;
-              //   document.getElementById(
-              //     "mentor"
-              //   ).onclick = function toMentor() {
-              //     sessionStorage.setItem("mentor", 1);
-              //     alert("change to mentor");
-              //     Words.innerHTML = Words.innerHTML + Mentor_coming;
-              //     words.scrollTop = words.scrollHeight;
-              //   };
-              // }
               Words.scrollTop = Words.scrollHeight;
             }
           );
@@ -237,6 +221,7 @@ window.onload = function() {
     });
   };
 
+  // metor mode eventlistener 
   mentor_mode.onclick = function() {
     if (Mode_on == true) {
       Mode_on = !Mode_on;
@@ -257,7 +242,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   sendResponse({ farewell: "ok" });
 });
 
-// selected translation
+// hypertranslation
 (function() {
   "use strict";
   var trsBlock = createBlock();
@@ -313,7 +298,8 @@ function getWord() {
   if (word === "") return;
   return word;
 }
-// obtain the x , y position
+
+// the function to obtain the x , y position
 function mouseCoords(ev) {
   if (ev.pageX || ev.pageY) {
     return { x: ev.pageX, y: ev.pageY };
