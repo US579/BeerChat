@@ -19,7 +19,7 @@ function initPage() {
   });
   let talk_con = createElement("div", null, { class: "talk_con" });
   const bt = createElement("button", null, { id: "btt", alt: "" });
-  
+
   //Set up listening mode.
   const modebt = createElement("button", null, { id: "mtt", alt: "" });
   bt.onclick = function() {
@@ -45,10 +45,11 @@ function initPage() {
   // store the chat history in the sessionStorage
   if (sessionStorage.length) {
     for (var i = 0; i < sessionStorage.length; i++) {
+      // console.log(sessionStorage.getItem(i));
       if (sessionStorage.getItem(i) == "") {
         continue;
       }
-      if (i % 2 == 0) {
+      if (i % 2 == 1) {
         let Atalk = createElement("div", null, { class: "btalk" });
         Atalk.appendChild(
           createElement("span", sessionStorage.getItem(i), { id: "asay" })
@@ -127,6 +128,7 @@ window.onload = function() {
   if (!window.WebSocket) {
     window.WebSocket = window.MozWebSocket;
   }
+  //chat response
   if (window.WebSocket) {
     socket.onmessage = function(event) {
       var Words = document.getElementById("words");
@@ -134,12 +136,15 @@ window.onload = function() {
         sessionStorage.setItem("port", event.data);
       }
       let data = event.data;
-        var myIndex = data.indexOf("@");
-        var name = data.slice(0,myIndex)
-        var content = data.slice(myIndex+1);
-        console.log(content)
-        console.log(name)
-      let str3 = '<div><p id="name">'+name+'</p><div class="atalk"><span>' + content+ "</span></div></div>";
+      var myIndex = data.indexOf("@");
+      var name = data.slice(0, myIndex);
+      var content = data.slice(myIndex + 1);
+      let str3 =
+        '<div><p id="name">' +
+        name +
+        '</p><div class="atalk"><span>' +
+        content +
+        "</span></div></div>";
       if (Mode_on) {
         Words.innerHTML = Words.innerHTML + str3;
       }
@@ -211,17 +216,17 @@ window.onload = function() {
               TalkWords.value = "";
               Words.innerHTML = Words.innerHTML + str2;
               Words.scrollTop = words.scrollHeight;
-              if (mentor) {
-                Words.innerHTML = Words.innerHTML + mentor;
-                document.getElementById(
-                  "mentor"
-                ).onclick = function toMentor() {
-                  sessionStorage.setItem("mentor", 1);
-                  alert("change to mentor");
-                  Words.innerHTML = Words.innerHTML + Mentor_coming;
-                  words.scrollTop = words.scrollHeight;
-                };
-              }
+              // if (mentor) {
+              //   Words.innerHTML = Words.innerHTML + mentor;
+              //   document.getElementById(
+              //     "mentor"
+              //   ).onclick = function toMentor() {
+              //     sessionStorage.setItem("mentor", 1);
+              //     alert("change to mentor");
+              //     Words.innerHTML = Words.innerHTML + Mentor_coming;
+              //     words.scrollTop = words.scrollHeight;
+              //   };
+              // }
               Words.scrollTop = Words.scrollHeight;
             }
           );
