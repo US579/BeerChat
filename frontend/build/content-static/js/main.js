@@ -19,6 +19,7 @@ function initPage() {
   });
   let talk_con = createElement("div", null, { class: "talk_con" });
   const bt = createElement("button", null, { id: "btt", alt: "" });
+  
   //Set up listening mode.
   const modebt = createElement("button", null, { id: "mtt", alt: "" });
   bt.onclick = function() {
@@ -78,7 +79,6 @@ function initPage() {
       id: "talksub"
     })
   );
-
   talk_input.appendChild(
     createElement("input", null, {
       type: "button",
@@ -102,6 +102,7 @@ document.οnkeydοwn = function(e) {
     alert("enter");
   }
 };
+
 // clear the token and chat history
 function clearLocalStorage() {
   chrome.storage.local.clear(function() {
@@ -129,15 +130,17 @@ window.onload = function() {
   if (window.WebSocket) {
     socket.onmessage = function(event) {
       var Words = document.getElementById("words");
-
-      console.log(event.data);
       if (!sessionStorage.getItem("port")) {
         sessionStorage.setItem("port", event.data);
       }
       let data = event.data;
-      console.log(data.slice(0, 5));
-      console.log(sessionStorage.getItem("port"));
-      let str3 = '<div class="atalk"><span>' + event.data + "</span></div>";
+        var myIndex = data.indexOf("@");
+        // 根据索引切片
+        var name = data.slice(0,myIndex)
+        var content = data.slice(myIndex+1);
+        console.log(content)
+        console.log(name)
+      let str3 = '<div><p id="name">'+name+'</p><div class="atalk"><span>' + content+ "</span></div></div>";
       if (Mode_on) {
         Words.innerHTML = Words.innerHTML + str3;
       }
