@@ -135,7 +135,6 @@ window.onload = function() {
       }
       let data = event.data;
         var myIndex = data.indexOf("@");
-        // 根据索引切片
         var name = data.slice(0,myIndex)
         var content = data.slice(myIndex+1);
         console.log(content)
