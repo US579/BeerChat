@@ -9,6 +9,8 @@ import os
 import json
 from googletrans import Translator
 from wit import Wit
+from .. import config
+# the access token for wit ai
 access_token = "ABJWGG53QBEVM6UY6AUMBPNP42EQCXOZ"
 client = Wit(access_token)
 rs = RiveScript()
@@ -16,51 +18,99 @@ rs1 = RiveScript()
 import datetime
 class Chatbot(Resource):
     def wit_response(self,text):
-        #print(json.dumps(text, indent=4))
-        #print(text["_text"])
         message = "Analysing the code " + text["_text"] + " : "
         entities = list(text["entities"].keys())
+        # print(entities)
+        # if the intent cannot be detected, redirect to rs
         if "intent" not in entities:
             return None
+
+        # using different ways to avoid mistranslate
+        F = text['_text'].split()
+        if F[0] not in ["for","if","while"]:
+            return None
+        # in + range
+        if "in" in F:
+            index = F.index("in")
+            if index == len(F)-1 or len(F[index+1])<5 or F[index+1][:5]!="range":
+                return None
+        # while
+        if F[0] in ["for","if","while"] and len(F)>1:
+            FF = text['_text'].split(' ',1)
+            k = ["==", ">=", "<=",">","<", "!=","in"]
+            flag = 0
+            print(1)
+            for i in k:
+                if i in FF[1]:
+                    flag = 1
+            if flag!=1:
+                return None
+
+        # try to catch intent and response message
         try:
             intent = text["entities"]["intent"][0]["value"]
+            # print(intent)
             if intent == "function_search":
                 return None
             if intent == "Loop_function":
                 m_function ="This is a Loop Function. The key word: \" " +\
                     text["entities"]["loop_tag"][0]["value"] + "\" represents the loop."
             if intent == "Conditional_statement":
-                m_function = "This is a Condition Statement. The key word: \"" + \
-                       text["entities"]["condition_statement_tag"][0]["value"] + "\" represents the condition starts."
+                # print(json.dumps(text["entities"],indent=4))
+                if "loop_tag" in text["entities"]:
+                    m_function = "This is a Loop Statement. The key word: \"" + \
+                                 text["entities"]["loop_tag"][0]["value"] + "\" represents the loop starts."
+                else:
+                    m_function = "This is a Condition Statement. The key word: \"" + \
+                            text["entities"]["condition_statement_tag"][0]["value"] + "\" represents the condition starts."
+                # print(m_function)
             if "condition" in entities:
-                condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
-                c = text["entities"]["condition"][0]["entities"]
-                m_condition = ". The following is condition: \"" +text["entities"]["condition"][0]["value"] + "\", it can split into several parts: "
-                for i in condition_entities:
-                    if i!= "intent":
-                        m_condition += "\"" + i  + "\" is " + c[i][0]["value"] +"; "
+                if "entities" not in list(text["entities"]["condition"][0]):
+                    m_condition = ". The following is condition: \"" + text["entities"]["condition"][0]["value"]+ "\" ."
+                else:
+                    condition_entities = list(text["entities"]["condition"][0]["entities"].keys())
+                    c = text["entities"]["condition"][0]["entities"]
+
+                    m_condition = ". The following is condition: \"" +text["entities"]["condition"][0]["value"] + "\", it can split into several parts: "
+                    for i in condition_entities:
+                        if i!= "intent":
+                            m_condition += "\"" + i  + "\" is " + c[i][0]["value"] +"; "
             return message + m_function + m_condition
         except Exception:
             return None
 
 
-
+    #accept attribute from url
     def get(self):
         try:
+            #analyse token is valid or not
             data = jwt.decode(g.headers['Token'],config.Secret_Key)
         except Exception:
             return make_response(jsonify(message = 'invalid token'), 401)
-        #print(g.args['message'])
+        #analyse whether the word is from chatbox or scanning    
         if(g.args['huaci'] == False):  
+            #load rivescript
             rs.load_directory(os.path.abspath('./ChatService/api/brain'))
             rs.sort_replies()
+            #send to wit.ai
             resp = client.message(g.args['message'])
+            #invoke wit_response
             resp = self.wit_response(resp)
+            #if wit.ai could not give response, then go to rivescript
             if resp == None:
+                print(rs.reply(data['email'], g.args['message'])[0:5])
+                #if can not reply, then record the problem
+                if(rs.reply(data['email'], g.args['message'])[0:5] == "Sorry"):
+                    db = config.connectdb()
+                    collection = db['problem']
+                    problem = {}
+                    problem['problem'] = g.args['message']
+                    collection.insert_one(problem)
                 return make_response(jsonify(messge=rs.reply(data['email'], g.args['message'])))
             else:
                 return make_response(jsonify(messge=resp))
         else:
+            #scanning chatbot
             rs1.load_directory(os.path.abspath('./ChatService/api/brain2'))
             rs1.sort_replies()
             resp = client.message(g.args['message'])
