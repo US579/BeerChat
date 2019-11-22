@@ -104,7 +104,8 @@ login_submit.onclick = () => {
       chrome.storage.sync.set({ key: res.token }, function() {
         console.log(res.token);
       });
-    });
+    })
+    .catch(error => alert("server error"));
 };
 
 // logout
@@ -170,5 +171,6 @@ signup_submit.onclick = () => {
       } else {
         alert("Register unsuccessful");
       }
-    });
+    })
+    .catch(error => alert("server error"));;
 };
