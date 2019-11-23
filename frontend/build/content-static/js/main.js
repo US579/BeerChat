@@ -49,7 +49,6 @@ function initPage() {
         continue;
       }
       let ans = sessionStorage.getItem(i);
-      console.log(ans.slice(2));
       if (ans.slice(0, 2) === "b:") {
         let Atalk = createElement("div", null, { class: "btalk" });
         Atalk.appendChild(createElement("span", ans.slice(2), { id: "asay" }));
