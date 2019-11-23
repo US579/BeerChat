@@ -46,21 +46,33 @@ function initPage() {
   if (sessionStorage.length) {
     for (var i = 0; i < sessionStorage.length; i++) {
       // console.log(sessionStorage.getItem(i));
-      if (sessionStorage.getItem(i) == "") {
+      if (sessionStorage.getItem(i) == null) {
         continue;
       }
-      if (i % 2 == 1) {
+      let ans = sessionStorage.getItem(i);
+      console.log(ans.slice(2));
+      if (ans.slice(0, 2) === "b:") {
         let Atalk = createElement("div", null, { class: "btalk" });
-        Atalk.appendChild(
-          createElement("span", sessionStorage.getItem(i), { id: "asay" })
-        );
+        Atalk.appendChild(createElement("span", ans.slice(2), { id: "asay" }));
         talk_show.appendChild(Atalk);
       } else {
-        let Btalk = createElement("div", null, { class: "atalk" });
-        Btalk.appendChild(
-          createElement("span", sessionStorage.getItem(i), { id: "bsay" })
-        );
-        talk_show.appendChild(Btalk);
+        var myIndex = ans.slice(2).indexOf("@");
+        if (myIndex != -1) {
+          var name = ans.slice(2).slice(0, myIndex);
+          var content = ans.slice(2).slice(myIndex + 1);
+          let div = createElement("div",null,{})
+          div.appendChild(createElement("p",name,{id:"name"}))
+          let Btalk = createElement("div", null, { class: "atalk" });
+          Btalk.appendChild(createElement('span',content,{}))
+          div.appendChild(Btalk)
+          talk_show.appendChild(div);
+        } else {
+          let Btalk = createElement("div", null, { class: "atalk" });
+          Btalk.appendChild(
+            createElement("span", ans.slice(2), { id: "bsay" })
+          );
+          talk_show.appendChild(Btalk);
+        }
       }
     }
   }
@@ -128,8 +140,8 @@ window.onload = function() {
   if (window.WebSocket) {
     socket.onmessage = function(event) {
       var Words = document.getElementById("words");
-      if (!sessionStorage.getItem("port")) {
-        sessionStorage.setItem("port", event.data);
+      if (!sessionStorage.getItem(sessionStorage.length)) {
+        sessionStorage.setItem(sessionStorage.length, "a:" + event.data);
       }
       let data = event.data;
       var myIndex = data.indexOf("@");
@@ -186,7 +198,7 @@ window.onload = function() {
           var Words = document.getElementById("words");
           let str4 =
             '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
-          sessionStorage.setItem(sessionStorage.length, TalkWords.value);
+          sessionStorage.setItem(sessionStorage.length, "b:" + TalkWords.value);
           Words.innerHTML = Words.innerHTML + str4;
           TalkWords.value = "";
           Words.scrollTop = words.scrollHeight;
@@ -199,7 +211,7 @@ window.onload = function() {
           return;
         }
         str = '<div class="btalk"><span>' + TalkWords.value + "</span></div>";
-        sessionStorage.setItem(sessionStorage.length, TalkWords.value);
+        sessionStorage.setItem(sessionStorage.length, "b:" + TalkWords.value);
         if (sessionStorage.getItem("mentor") != 1) {
           chrome.runtime.sendMessage(
             { contentScriptQuery: TalkWords.value, huaci: "False" },
@@ -208,7 +220,7 @@ window.onload = function() {
               Words.innerHTML = Words.innerHTML + str;
               var str2 =
                 '<div class="atalk"><span>' + res.messge + "</span></div>";
-              sessionStorage.setItem(sessionStorage.length, res.messge);
+              sessionStorage.setItem(sessionStorage.length, "a:" + res.messge);
               TalkWords.value = "";
               Words.innerHTML = Words.innerHTML + str2;
               Words.scrollTop = Words.scrollHeight;
@@ -221,7 +233,7 @@ window.onload = function() {
     });
   };
 
-  // metor mode eventlistener 
+  // metor mode eventlistener
   mentor_mode.onclick = function() {
     if (Mode_on == true) {
       Mode_on = !Mode_on;
@@ -236,7 +248,7 @@ window.onload = function() {
 };
 
 // add listener to reopen the chatbox
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+chrome.runtime.onMessage.addListener(function(sendResponse) {
   let maaaan = document.getElementById("maaaaan");
   maaaan.style.display = "block";
   sendResponse({ farewell: "ok" });
