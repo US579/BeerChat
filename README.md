@@ -60,6 +60,6 @@ better use incognito window as normal window may block port
 
 * Hypertranslation
 
-<div align=center><img width="600" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation.png"/></div>
+<div align=center><img width="800" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation.png"/></div>
 
 
