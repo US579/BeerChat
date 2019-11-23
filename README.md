@@ -58,12 +58,11 @@ better use incognito window as normal window may block port
 
 <div align=center><img width="600" height="400" src="https://github.com/US579/507/blob/master/img/chatwithchatbot.png"/></div>
 
-* Hypertranslation (two functions)
-
+* Hypertranslation (two features)
+   
    - code explaination (it is able to select the code to explain what this code means )
 
 <div align=center><img width="800" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation.png"/></div>
-	
 	
    - translation to chinese when you read the english document
    
