@@ -45,7 +45,6 @@ function initPage() {
   // store the chat history in the sessionStorage
   if (sessionStorage.length) {
     for (var i = 0; i < sessionStorage.length; i++) {
-      // console.log(sessionStorage.getItem(i));
       if (sessionStorage.getItem(i) == null) {
         continue;
       }
