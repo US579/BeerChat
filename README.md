@@ -38,7 +38,7 @@ or
 >> brew install virtualenv (only for mac)
 >> virtualenv env
 >> source env/bin/activate
->> pip install -r requirment.txt
+>> pip install -r requirements.txt
 >> python3 __init__.py
 >> node server.js
 ```
