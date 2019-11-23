@@ -9,7 +9,7 @@
 * connect to the chatbot
 * chat history sotred 
 * UI design
-* selected translation
+* hypertranslation (explain code , translation document to other languages)
 
 # How to run
 
