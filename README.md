@@ -60,11 +60,12 @@ better use incognito window as normal window may block port
 
 * Hypertranslation (two functions)
 
-	- code explaination (it is able to select the code to explain what this code means )
+   - code explaination (it is able to select the code to explain what this code means )
 
 <div align=center><img width="800" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation.png"/></div>
 	
-	- translation to chinese when you read the english document
+	
+   - translation to chinese when you read the english document
    
 <div align=center><img width="800" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation1.png"/></div>
 
