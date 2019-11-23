@@ -71,6 +71,7 @@ better use incognito window as normal window may block port
 
 <div align=center><img width="800" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation.png"/></div>
 	
+
 - translation to chinese when you read the english document
    
 <div align=center><img width="800" height="400" src="https://github.com/US579/507/blob/master/img/hypertranslation1.png"/></div>
