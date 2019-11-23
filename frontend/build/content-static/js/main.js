@@ -47,6 +47,13 @@ function initPage() {
       { id: "asay" }
     )
   );
+  Atalk.appendChild(
+    createElement(
+      "span",
+      "Also if want to disscuss with other users, just clik the switch button!",
+      { id: "Oops" }
+    )
+  );
   talk_show.appendChild(Atalk);
   // store the chat history in the sessionStorage
   if (sessionStorage.length) {
