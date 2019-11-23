@@ -90,7 +90,7 @@ class Chatbot(Resource):
         #analyse whether the word is from chatbox or scanning    
         if(g.args['huaci'] == False):  
             #load rivescript
-            rs.load_directory(os.path.abspath('./ChatService/api/brain'))
+            rs.load_directory(os.path.abspath('./backend/OpenSourceProject/backend/ChatService/api/brain'))
             rs.sort_replies()
             #send to wit.ai
             resp = client.message(g.args['message'])
@@ -111,7 +111,7 @@ class Chatbot(Resource):
                 return make_response(jsonify(messge=resp))
         else:
             #scanning chatbot
-            rs1.load_directory(os.path.abspath('./ChatService/api/brain2'))
+            rs1.load_directory(os.path.abspath('./backend/OpenSourceProject/backend/ChatService/api/brain2'))
             rs1.sort_replies()
             resp = client.message(g.args['message'])
             resp = self.wit_response(resp)
