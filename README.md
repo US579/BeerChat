@@ -15,6 +15,13 @@
 
 1. Go to `release` download the latest release version 1.0.1
 
+or
+
+2. go to Terminal
+
+  * `git clone https://github.com/US579/507.git`
+  * `cd 507`
+
 ### Frontend
 
 *  open chrome
