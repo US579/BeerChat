@@ -35,7 +35,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
       request.contentScriptQuery +
       "&huaci=" +
       request.huaci;
-    console.log(url);
     fetch(url, {
       method: "GET",
       headers: {

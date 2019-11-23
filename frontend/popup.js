@@ -42,6 +42,7 @@ onBut1.onclick = () => {
   }
 };
 
+// set up hypertranslation on or off switch
 chrome.storage.sync.get(["onoff"], function (result) {
   if (result.onoff) {
     document.getElementById("ckbox").checked = false;
@@ -49,9 +50,6 @@ chrome.storage.sync.get(["onoff"], function (result) {
     document.getElementById("ckbox").checked = true;
   }
 })
-
-// chrome.storage.sync.set({ onoff: 1 }, function () {
-// });
 
 //for signup
 onBut2.onclick = () => {
@@ -75,7 +73,6 @@ login_submit.onclick = () => {
     username_login +
     "&password=" +
     password_login;
-  console.log(url);
   fetch(url, {
     method: "GET",
     headers: {
@@ -158,7 +155,6 @@ signup_submit.onclick = () => {
   })
     .then(res => res.json())
     .then(function(res) {
-      console.log(res);
       document.getElementById("signup-username").value = "";
       document.getElementById("signup-password").value = "";
       if (res.message == "Register successful") {
