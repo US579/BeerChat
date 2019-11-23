@@ -10,6 +10,7 @@
 * chat history sotred 
 * UI design
 * hypertranslation (explain code , translation document to other languages)
+* hypertranslation switch on off
 
 # How to run
 
