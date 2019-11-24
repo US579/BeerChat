@@ -10,12 +10,15 @@ import json
 from googletrans import Translator
 from wit import Wit
 from .. import config
+import datetime
 # the access token for wit ai
 access_token = "ABJWGG53QBEVM6UY6AUMBPNP42EQCXOZ"
 client = Wit(access_token)
 rs = RiveScript()
 rs1 = RiveScript()
-import datetime
+
+
+
 class Chatbot(Resource):
     def wit_response(self,text):
         message = "Analysing the code " + text["_text"] + " : "
@@ -90,7 +93,7 @@ class Chatbot(Resource):
         #analyse whether the word is from chatbox or scanning    
         if(g.args['huaci'] == False):  
             #load rivescript
-            rs.load_directory(os.path.abspath('./backend/OpenSourceProject/backend/ChatService/api/brain'))
+            rs.load_directory(os.path.abspath('./brain'))
             rs.sort_replies()
             #send to wit.ai
             resp = client.message(g.args['message'])
@@ -111,7 +114,7 @@ class Chatbot(Resource):
                 return make_response(jsonify(messge=resp))
         else:
             #scanning chatbot
-            rs1.load_directory(os.path.abspath('./backend/OpenSourceProject/backend/ChatService/api/brain2'))
+            rs1.load_directory(os.path.abspath('./brain2'))
             rs1.sort_replies()
             resp = client.message(g.args['message'])
             resp = self.wit_response(resp)
@@ -124,3 +127,6 @@ class Chatbot(Resource):
                     return make_response(jsonify(messge=x.text))
             else:
                 return make_response(jsonify(messge=resp))
+
+
+print(os.path.abspath('.'))
