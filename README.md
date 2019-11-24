@@ -3,8 +3,8 @@
 ### Implementation
 
 
-* code explanation 
-* talking with others and learning code from open source 
+* code explanation
+* discussing with others about code and learning code from open source 
 * signup
 * login
 * login status check
