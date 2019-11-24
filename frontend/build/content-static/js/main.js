@@ -36,9 +36,22 @@ function initPage() {
   Atalk.appendChild(
     createElement(
       "span",
-      "Hi, in here, you could ask questions about python open source project coding.\
-      If you want to ask any specific function to python type, please input eg: String type function first then begin search.",
+      "Hi, in here, you could ask questions about python open source project coding.",
       { id: "asay" }
+    )
+  );
+  Atalk.appendChild(
+    createElement(
+      "span",
+      "If you want to ask any specific function to python type, please input eg: String type function first then begin search.",
+      { id: "asay" }
+    )
+  );
+  Atalk.appendChild(
+    createElement(
+      "span",
+      "Also if want to disscuss with other users, just clik the switch button!",
+      { id: "Oops" }
     )
   );
   talk_show.appendChild(Atalk);

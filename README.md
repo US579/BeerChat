@@ -1,7 +1,10 @@
-# Group 9
+# Group 9 beer
 
 ### Implementation
 
+
+* code explanation
+* discussing with others about code and learning code from open source 
 * signup
 * login
 * login status check
@@ -14,11 +17,11 @@
 
 # How to run
 
-1. Go to `release` download the latest release version 1.0.1
+1. Go to `release` download the latest release version
 
 or
 
-2. go to Terminal
+2. Go to Terminal
 
   * `git clone https://github.com/US579/507.git`
   * `cd 507`
@@ -40,6 +43,12 @@ or
 >> source env/bin/activate
 >> pip install -r requirements.txt
 >> python3 __init__.py
+
+```
+
+Open another terminal
+
+```
 >> node server.js
 ```
 or

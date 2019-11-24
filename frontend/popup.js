@@ -83,6 +83,7 @@ login_submit.onclick = () => {
   })
     .then(res => res.json())
     .then(function(res) {
+      
       if (res.token) {
         let login = document.getElementById("login");
         let signup = document.getElementById("signup");
@@ -95,6 +96,7 @@ login_submit.onclick = () => {
         logout.style.display = "block";
         onoff.style.display = "block";
       }
+      
       chrome.storage.sync.set({ key: res.token }, function() {
         console.log(res.token);
       });
