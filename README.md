@@ -68,7 +68,7 @@ better use incognito window as normal window may block port
 
 * Chat interface(Clik the switch button to turn on the mentor mode which enables user to disscuss with other users)
 
-<div align=center><img width="70%"  src="https://github.com/US579/507/blob/master/img/chat.png"/></div>
+<div align=center><img width="100%"  src="https://github.com/US579/507/blob/master/img/chat.png"/></div>
 
 * Chatbot(Get the auto reply from the app)
 
