@@ -4,7 +4,7 @@
 
 
 * code explanation 
-* talking with other and learning code from open source 
+* talking with others and learning code from open source 
 * signup
 * login
 * login status check
