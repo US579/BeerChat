@@ -43,7 +43,12 @@ or
 >> source env/bin/activate
 >> pip install -r requirements.txt
 >> python3 __init__.py
-Open another terminal 
+
+```
+
+Open another terminal
+
+```
 >> node server.js
 ```
 or
