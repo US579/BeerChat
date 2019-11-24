@@ -61,17 +61,16 @@ or
 
 better use incognito window as normal window may block port 
 
-### Demo
-
-* Chat interface
-
-<div align=center><img width="100%" height="400" src="https://github.com/US579/507/blob/master/img/chat.png"/></div>
-
-* Longin signup interface
+### How to use the extension
+* Longin signup interface (Use signed name and password to login) 
 
 <div align=center><img width="300" height="300" src="https://github.com/US579/507/blob/master/img/loginsingupform.png"/></div>
 
-* Chatbot
+* Chat interface(Clik the switch button to turn on the mentor mode which enables user to disscuss with other users)
+
+<div align=center><img width="100%" height="400" src="https://github.com/US579/507/blob/master/img/chat.png"/></div>
+
+* Chatbot(Get the auto reply from the app)
 
 <div align=center><img width="600" height="400" src="https://github.com/US579/507/blob/master/img/chatwithchatbot.png"/></div>
 
