@@ -1,4 +1,4 @@
-# Group 9 beer
+# Beer Chat
 
 ### Implementation
 
